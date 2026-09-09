@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards | Noodlecafé Sessions</title>
+<meta name="description" content="Upload a deck, flip the cards, clear the queue. The Noodlecafé Sessions flashcard trainer.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Archivo+Black&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* tokens */
+:root{
+  --cream:#FAF3EA;
+  --yellow:#F6E75F;
+  --pink:#F13C7D;
+  --pink-deep:#C9335C;
+  --pink-soft:#FDECEF;
+  --blue:#2E62F4;
+  --lav:#CDC5F2;
+  --ink:#161519;
+  --muted:#57534A;
+  --font-head:'Archivo Black','Archivo',sans-serif;
+  --font-body:'Archivo',sans-serif;
+  --font-pixel:'Silkscreen',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:var(--font-body);
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--pink);color:#fff}
+img,svg{display:block}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:3px dashed var(--pink);outline-offset:3px;border-radius:6px}
+.wrap{width:min(880px,92%);margin-inline:auto;position:relative;z-index:1}
+
+/* pixel bowl fills */
+.p-stick{fill:#8C5A2B}
+.p-steam{fill:var(--steam,#C9BFB3)}
+.p-noodle{fill:#F2C341}
+.p-green{fill:#59B36B}
+.p-white{fill:#FFF7EC}
+.p-naruto{fill:#F27BA4}
+.p-rim{fill:var(--bowl-rim,#C9335C)}
+.p-bowl{fill:var(--bowl-body,#EE4D74)}
+.p-foot{fill:var(--bowl-foot,#A82448)}
+.bowl{width:48px;aspect-ratio:16/14;height:auto}
+
+/* floating music notes */
+.fnote{
+  position:fixed;bottom:-50px;z-index:0;pointer-events:none;
+  opacity:0;animation:rise var(--d,10s) linear var(--delay,0s) infinite;
+}
+@keyframes rise{
+  0%{opacity:0;transform:translateY(0) rotate(0)}
+  12%{opacity:.5}
+  85%{opacity:.35}
+  100%{opacity:0;transform:translateY(-108vh) rotate(34deg)}
+}
+
+/* hero */
+.hero{text-align:center;padding:74px 0 12px;position:relative;z-index:1}
+.eyebrow{
+  font-weight:700;font-size:13px;letter-spacing:2.8px;text-transform:uppercase;color:var(--pink);
+  display:inline-block;background:var(--pink-soft);border:2px dashed var(--pink);
+  border-radius:999px;padding:9px 20px;
+}
+.hero h1{
+  font-family:var(--font-head);font-size:clamp(44px,9vw,100px);line-height:.98;
+  text-transform:uppercase;margin:24px 0 18px;
+}
+.hero h1 .spark-inline{display:inline-block;width:.55em;height:.55em;color:var(--pink);vertical-align:.32em;margin-left:.06em;animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{50%{opacity:.4;scale:.8}}
+.lede{max-width:600px;margin:0 auto;color:var(--muted);font-size:16.5px;line-height:1.7}
+.lede strong{color:var(--ink)}
+
+/* views */
+.view{display:none}
+.view.active{display:block;animation:viewpop .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes viewpop{from{opacity:0;translate:0 18px}}
+
+/* upload view */
+.upload-sec{padding:48px 0 20px;position:relative;z-index:1}
+.dropzone{
+  background:var(--pink-soft);border:3px dashed var(--pink);border-radius:24px;
+  padding:52px 28px;text-align:center;cursor:pointer;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .2s,box-shadow .25s;
+}
+.dropzone:hover,.dropzone.drag{background:#FBDCE3;transform:translateY(-4px);box-shadow:0 18px 34px rgba(238,77,116,.18)}
+.dropzone.drag{transform:scale(1.02)}
+.dz-bowl{width:76px;margin:0 auto 18px;animation:hop 2.4s cubic-bezier(.34,1.3,.6,1) infinite}
+@keyframes hop{
+  0%,100%{transform:translateY(0) scale(1,1)}
+  12%{transform:translateY(0) scale(1.07,.9)}
+  42%{transform:translateY(-18px) scale(.95,1.05)}
+  68%{transform:translateY(0) scale(1.06,.92)}
+  82%{transform:translateY(0) scale(1,1)}
+}
+.dz-title{font-family:var(--font-pixel);font-weight:700;font-size:clamp(13px,2.6vw,17px);letter-spacing:1px}
+.dz-sub{margin-top:12px;font-size:14px;color:var(--muted)}
+.dz-sub strong{color:var(--pink-deep)}
+.upload-row{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:26px}
+.tipbox{
+  max-width:640px;margin:30px auto 0;background:var(--cream);border:2px dashed #E5D5B8;
+  border-radius:16px;padding:18px 22px;font-size:13.5px;line-height:1.7;color:var(--muted);text-align:left;
+}
+.tipbox strong{color:var(--ink)}
+.tipbox .kbd{
+  font-family:var(--font-pixel);font-size:10px;background:var(--yellow);border:1.5px solid var(--ink);
+  border-radius:6px;padding:2px 7px;white-space:nowrap;
+}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:12px;text-decoration:none;border:0;cursor:pointer;
+  font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--ink);border-radius:999px;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+}
+.btn-yellow{background:var(--yellow);padding:11px 28px 11px 11px;border:2.5px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-yellow .ic{width:36px;height:36px;border-radius:50%;background:var(--pink);display:grid;place-items:center;color:#fff;transition:transform .3s}
+.btn:hover{transform:translateY(-3px) rotate(-2deg);box-shadow:7px 8px 0 var(--ink)}
+.btn:hover .ic svg{transform:rotate(90deg) scale(1.1)}
+.btn-plain{background:var(--yellow);padding:12px 30px;border:2.5px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-pink{background:var(--pink);color:#fff;padding:12px 30px;border:2.5px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.mini{
+  font-family:var(--font-pixel);font-weight:700;font-size:10px;letter-spacing:1px;
+  background:var(--cream);border:2px solid var(--ink);border-radius:999px;
+  padding:9px 14px;cursor:pointer;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .2s;
+}
+.mini:hover{transform:translateY(-2px) rotate(-3deg);background:var(--yellow)}
+
+/* study view */
+.study-sec{padding:44px 0 20px;position:relative;z-index:1}
+.deckbar{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--yellow);border:2.5px solid var(--ink);border-radius:16px;
+  padding:14px 18px;box-shadow:5px 5px 0 var(--ink);
+}
+.deckname{font-family:var(--font-pixel);font-weight:700;font-size:12px;letter-spacing:.5px;line-height:1.4;flex:1;min-width:160px}
+.deckname small{display:block;color:#8A8471;font-weight:400;font-size:9px;margin-top:3px;letter-spacing:1px}
+.deckbar .mini{flex-shrink:0}
+.progress{margin:22px 2px 6px}
+.bar-track{height:14px;background:var(--cream);border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:var(--pink);border-radius:999px;transition:width .45s cubic-bezier(.2,.7,.2,1)}
+.bar-label{font-family:var(--font-pixel);font-size:10px;color:#8A8471;margin-top:9px;letter-spacing:1px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+/* flip card */
+.flip-scene{perspective:1400px;margin-top:16px;animation:deal .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes deal{from{opacity:0;transform:translateY(22px) rotate(-1.5deg) scale(.96)}}
+.flip-inner{
+  position:relative;height:clamp(300px,46vh,400px);
+  transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.flip-inner.flipped{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:24px;padding:24px 28px;display:flex;flex-direction:column;cursor:pointer;
+}
+.face-front{
+  background:var(--yellow);border:2.5px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+}
+.face-back{
+  background:var(--pink-soft);border:2.5px dashed var(--pink);box-shadow:8px 8px 0 var(--pink);
+  transform:rotateY(180deg);
+}
+.face-tag{font-family:var(--font-pixel);font-size:10px;letter-spacing:2px;color:var(--pink-deep)}
+.face-back .face-tag{color:var(--pink)}
+.face-text{
+  flex:1;display:grid;place-items:center;text-align:center;padding:14px 6px;overflow:auto;
+  font-weight:700;font-size:clamp(19px,3.2vw,28px);line-height:1.35;white-space:pre-line;
+}
+.face-back .face-text{font-weight:500;color:var(--pink-deep);font-size:clamp(17px,2.9vw,25px)}
+.face-hint{font-family:var(--font-pixel);font-size:9px;color:#B8AE9F;text-align:center;letter-spacing:2px}
+
+/* answer buttons */
+.answer-row{display:flex;gap:18px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.ans-btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  font-family:var(--font-pixel);font-weight:700;font-size:13px;letter-spacing:1px;
+  border-radius:999px;padding:15px 30px;border:2.5px solid var(--ink);
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+}
+.ans-again{background:var(--cream);color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.ans-again:hover{transform:translateY(-3px) rotate(-2deg);box-shadow:6px 7px 0 var(--ink)}
+.ans-got{background:var(--pink);color:#fff;box-shadow:4px 4px 0 var(--ink)}
+.ans-got:hover{transform:translateY(-3px) rotate(2deg);box-shadow:6px 7px 0 var(--ink)}
+.keys-hint{font-family:var(--font-pixel);font-size:9px;color:#B8AE9F;text-align:center;margin-top:20px;letter-spacing:1.5px;line-height:2}
+
+/* done view */
+.done-sec{padding:56px 0 20px;position:relative;z-index:1;text-align:center}
+.done-bowl{width:110px;margin:0 auto 22px;animation:hop 2.4s cubic-bezier(.34,1.3,.6,1) infinite}
+.done-sec h2{font-family:var(--font-head);font-size:clamp(38px,7.5vw,72px);text-transform:uppercase;line-height:1}
+.done-stats{font-family:var(--font-pixel);font-size:12px;letter-spacing:1.5px;color:var(--pink-deep);margin:20px 0 34px;line-height:2.2}
+.done-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* footer */
+footer{border-top:2px dashed #E5DAC9;padding:34px 0 40px;text-align:center;margin-top:56px;position:relative;z-index:1}
+.foot-brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:12px}
+.foot-brand .bowl{width:34px}
+.brand-text{font-family:var(--font-pixel);font-weight:700;font-size:14px;line-height:1.15;text-align:left}
+.brand-text .np{color:var(--pink)}
+.foot-small{font-size:12.5px;color:var(--muted);line-height:1.9}
+
+/* decor */
+.deco{position:absolute;pointer-events:none;z-index:0;animation:bob 7s ease-in-out infinite}
+@keyframes bob{50%{translate:0 -13px}}
+@keyframes tw2{50%{opacity:.35;scale:.82}}
+.d-1{right:-34px;top:220px;width:120px;height:80px;color:var(--pink);transform:rotate(-16deg)}
+.d-2{left:6%;top:150px;width:24px;height:24px;color:var(--blue);animation:bob 8s ease-in-out infinite,tw2 3.2s ease-in-out infinite}
+.d-3{left:-30px;bottom:18%;width:130px;height:130px;color:var(--lav)}
+
+/* confetti */
+.confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.confetti{position:absolute;top:-40px;will-change:transform;animation:fall var(--dur,3.2s) linear var(--cdelay,0s) forwards}
+@keyframes fall{to{transform:translate(var(--dx,0px),112vh) rotate(680deg);opacity:.85}}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;z-index:120;
+  background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:13px 22px;
+  font-weight:700;font-size:14px;max-width:92vw;text-align:center;
+  box-shadow:0 14px 30px rgba(17,17,17,.2);pointer-events:none;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* responsive */
+@media (max-width:640px){
+  .hero{padding-top:52px}
+  .dropzone{padding:38px 18px}
+  .face{padding:18px 16px}
+  .deckbar{gap:10px}
+  .d-1,.d-3{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .fnote{display:none}
+  .flip-inner.flipped{transform:none}
+  .flip-inner.flipped .face-front{visibility:hidden}
+}
+</style>
+</head>
+<body id="top">
+
+<!-- svg symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bowl" viewBox="0 0 16 14" shape-rendering="crispEdges">
+    <path class="p-steam" d="M5 0h1v1H5zM10 0h1v1H10zM4 1h1v1H4zM6 1h1v1H6zM9 1h1v1H9zM11 1h1v1H11zM5 2h1v1H5zM10 2h1v1H10z"/>
+    <path class="p-stick" d="M12 0h1v1H12zM11 1h1v1H11zM10 2h1v1H10zM14 0h1v1H14zM13 1h1v1H13zM12 2h1v1H12z"/>
+    <path class="p-noodle" d="M3 3h10v1H3zM2 4h2v1H2zM5 4h1v1H5zM7 4h1v1H7zM9 4h2v1H9zM12 4h2v1H12zM2 5h1v1H2zM4 5h6v1H4zM11 5h3v1H11z"/>
+    <path class="p-green" d="M4 4h1v1H4zM8 4h1v1H8zM3 5h1v1H3zM10 5h1v1H10z"/>
+    <path class="p-white" d="M6 4h1v1H6z"/>
+    <path class="p-naruto" d="M11 4h1v1H11z"/>
+    <path class="p-rim" d="M1 6h14v1H1z"/>
+    <path class="p-bowl" d="M1 7h14v1H1zM1 8h14v1H1zM2 9h12v1H2zM3 10h10v1H3zM4 11h8v1H4zM5 12h6v1H5z"/>
+    <path class="p-foot" d="M6 13h4v1H6z"/>
+  </symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.9 7.4 4.6 11.1 12 12-7.4.9-11.1 4.6-12 12-.9-7.4-4.6-11.1-12-12C7.4 11.1 11.1 7.4 12 0z"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24" fill="none"><path d="M4 12h14.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M12 5.5 18.5 12 12 18.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- floating music notes -->
+<span class="fnote" style="left:6%;--d:12s;--delay:0s;color:var(--pink);font-size:20px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:15%;--d:15s;--delay:3s;color:var(--blue);font-size:15px" aria-hidden="true">♫</span>
+<span class="fnote" style="left:74%;--d:14s;--delay:1.5s;color:var(--pink);font-size:16px" aria-hidden="true">♫</span>
+<span class="fnote" style="left:86%;--d:11s;--delay:4.5s;color:var(--blue);font-size:20px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:93%;--d:16s;--delay:7s;color:var(--lav);font-size:14px" aria-hidden="true">✦</span>
+
+<main>
+  <!-- hero -->
+  <section class="hero">
+    <svg class="deco d-2" aria-hidden="true"><use href="#spark"/></svg>
+    <svg class="deco d-1" viewBox="0 0 64 42" aria-hidden="true"><path d="M6 40A26 26 0 0 1 58 40" fill="none" stroke="currentColor" stroke-width="13"/></svg>
+    <svg class="deco d-3" aria-hidden="true"><use href="#spark"/></svg>
+    <div class="wrap">
+      <span class="eyebrow">Study mode ✦ flashcards</span>
+      <h1>Flip the cards<span class="spark-inline"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><use href="#spark"/></svg></span></h1>
+      <p class="lede">Upload a deck, flip the card, be honest with yourself. Stuff you miss comes back around in the queue until you've got it. <strong>Clear the whole deck to win.</strong> 🍜</p>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 1: UPLOAD ============ -->
+  <section class="upload-sec">
+    <div class="wrap">
+      <div class="view active" id="uploadView">
+        <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload a flashcard deck file">
+          <svg class="bowl dz-bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+          <p class="dz-title">DROP YOUR DECK HERE</p>
+          <p class="dz-sub">or click to browse. Works with <strong>.csv</strong>, <strong>.tsv</strong> and <strong>.txt</strong><br>two columns: question, answer. That's the whole format.</p>
+          <input type="file" id="fileInput" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden>
+        </div>
+        <div class="upload-row">
+          <button class="btn btn-yellow" id="demoBtn">
+            <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24"><use href="#spark"/></svg></span>
+            Try the demo deck
+          </button>
+        </div>
+        <div class="tipbox">
+          <strong>📦 Already built a deck in Anki?</strong> Open Anki, hit <span class="kbd">FILE → EXPORT</span>, pick <span class="kbd">NOTES IN PLAIN TEXT (.TXT)</span>, and drop the exported file right here. It just works.<br>
+          <strong>📊 More of a spreadsheet person?</strong> Make two columns in Google Sheets or Excel (question, answer), download as CSV, upload. Same deal.
+        </div>
+      </div>
+
+      <!-- ============ VIEW 2: STUDY ============ -->
+      <div class="view" id="studyView">
+        <div class="deckbar">
+          <div class="deckname" id="deckName">DECK<small>N CARDS</small></div>
+          <button class="mini" id="shuffleBtn" title="Shuffle (S)">SHUFFLE ↻</button>
+          <button class="mini" id="restartBtn" title="Restart (R)">RESTART ↺</button>
+          <button class="mini" id="swapBtn" title="Load a different deck">SWAP DECK ⇄</button>
+        </div>
+
+        <div class="progress">
+          <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+          <div class="bar-label"><span id="barLeft">0 MASTERED</span><span id="barRight">0 TO GO</span></div>
+        </div>
+
+        <div class="flip-scene" id="flipScene">
+          <div class="flip-inner" id="flipInner">
+            <div class="face face-front" id="faceFront" role="button" tabindex="0" aria-label="Card front. Press space or click to flip.">
+              <span class="face-tag">QUESTION ✦</span>
+              <p class="face-text" id="frontText"></p>
+              <span class="face-hint">CLICK OR PRESS SPACE TO FLIP</span>
+            </div>
+            <div class="face face-back">
+              <span class="face-tag">ANSWER ✦</span>
+              <p class="face-text" id="backText"></p>
+              <span class="face-hint">WERE YOU RIGHT? BE HONEST.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-row">
+          <button class="ans-btn ans-again" id="againBtn">↻ AGAIN <span style="opacity:.55">[1]</span></button>
+          <button class="ans-btn ans-got" id="gotBtn">✓ GOT IT <span style="opacity:.55">[2]</span></button>
+        </div>
+        <p class="keys-hint">SPACE FLIP ✦ 1 AGAIN ✦ 2 GOT IT ✦ S SHUFFLE ✦ R RESTART</p>
+      </div>
+
+      <!-- ============ VIEW 3: DONE ============ -->
+      <div class="view" id="doneView">
+        <div class="done-sec">
+          <svg class="bowl done-bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+          <h2>Deck cleared!</h2>
+          <p class="done-stats" id="doneStats"></p>
+          <div class="done-row">
+            <button class="btn btn-yellow" id="againAllBtn">
+              <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24"><use href="#spark"/></svg></span>
+              Study it again
+            </button>
+            <button class="btn btn-plain" id="newDeckBtn">Load another deck</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer>
+  <div class="wrap">
+    <a class="foot-brand" href="#top">
+      <svg class="bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+      <span class="brand-text">noodlecafé<br>sesssions<span class="np"> ♪</span></span>
+    </a>
+    <p class="foot-small">No bullshit. No gatekeeping. Just music. 🍜</p>
+  </div>
+</footer>
+
+<!-- confetti layer -->
+<div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+<!-- toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+
+<script>
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+};
+
+/* ================= state ================= */
+let deck = { name:'', cards: [] };   // cards: {front, back}
+let queue = [];                      // indices still to master
+let flips = 0;
+let flipped = false;
+
+/* ================= toast ================= */
+let toastTimer;
+function toast(msg){
+  $('#toastMsg').textContent = msg;
+  $('#toast').classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3600);
+}
+
+/* ================= confetti ================= */
+function burst(count = 60){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const layer = $('#confettiLayer');
+  const chars = ['🍜','✦','♪','♫','★'];
+  const colors = ['#F13C7D','#F6E75F','#2E62F4','#CDC5F2','#F27BA4'];
+  for (let i = 0; i < count; i++){
+    const el = document.createElement('span');
+    el.className = 'confetti';
+    if (Math.random() < .3){
+      const size = 6 + Math.random() * 8;
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.borderRadius = Math.random() < .5 ? '50%' : '2px';
+    } else {
+      el.textContent = chars[Math.floor(Math.random() * chars.length)];
+      el.style.fontSize = (12 + Math.random() * 14) + 'px';
+      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.setProperty('--dx', (Math.random() * 160 - 80) + 'px');
+    el.style.setProperty('--dur', (2.6 + Math.random() * 2.4) + 's');
+    el.style.setProperty('--cdelay', (Math.random() * .8) + 's');
+    el.addEventListener('animationend', () => el.remove());
+    layer.appendChild(el);
+  }
+}
+
+/* ================= view switching ================= */
+function showView(id){
+  $$('.view').forEach(v => v.classList.remove('active'));
+  $('#' + id).classList.add('active');
+}
+
+/* ================= deck parsing ================= */
+function cleanField(s){
+  return s.replace(/<br\s*\/?>/gi, '\n')
+          .replace(/<[^>]*>/g, '')
+          .replace(/&nbsp;/gi, ' ')
+          .replace(/&amp;/gi, '&')
+          .replace(/&lt;/gi, '<')
+          .replace(/&gt;/gi, '>')
+          .replace(/&quot;/gi, '"')
+          .replace(/&#39;|&apos;/gi, "'")
+          .trim();
+}
+function parseLine(line, d){
+  const out = []; let cur = ''; let inQ = false;
+  for (let i = 0; i < line.length; i++){
+    const ch = line[i];
+    if (inQ){
+      if (ch === '"'){
+        if (line[i + 1] === '"'){ cur += '"'; i++; }
+        else inQ = false;
+      } else cur += ch;
+    } else {
+      if (ch === '"') inQ = true;
+      else if (ch === d){ out.push(cur); cur = ''; }
+      else cur += ch;
+    }
+  }
+  out.push(cur);
+  return out;
+}
+function parseDeckText(text){
+  const allLines = text.split(/\r?\n/);
+  const dataLines = allLines.filter(l => l.trim() && !l.trim().startsWith('#'));
+  if (!dataLines.length) return [];
+  /* pick the delimiter that produces the most columns */
+  let delim = '\t', bestCols = 1;
+  for (const d of ['\t',';',',','|']){
+    let cols = 0;
+    dataLines.slice(0, 5).forEach(l => cols = Math.max(cols, parseLine(l, d).length));
+    if (cols > bestCols){ bestCols = cols; delim = d; }
+  }
+  const cards = [];
+  for (const line of dataLines){
+    const cols = parseLine(line, delim);
+    const front = cleanField(cols[0] || '');
+    const back  = cleanField(cols[1] || '');
+    if (front && back) cards.push({ front, back });
+  }
+  return cards;
+}
+
+/* ================= session logic ================= */
+function shuffleArr(a){
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function loadDeck(d, save = true){
+  deck = d;
+  if (save) store.set('nf-deck', JSON.stringify(d));
+  startSession();
+  showView('studyView');
+}
+function startSession(){
+  queue = shuffleArr(deck.cards.map((_, i) => i));
+  flips = 0;
+  $('#deckName').innerHTML =
+    deck.name.toUpperCase().slice(0, 42) +
+    '<small>' + deck.cards.length + ' CARDS ✦ NOODLECAFÉ SESSIONS</small>';
+  showNext();
+}
+function updateProgress(){
+  const mastered = deck.cards.length - queue.length;
+  $('#barFill').style.width = (mastered / deck.cards.length * 100) + '%';
+  $('#barLeft').textContent  = mastered + ' MASTERED';
+  $('#barRight').textContent = queue.length + ' TO GO';
+}
+function showNext(){
+  flipped = false;
+  $('#flipInner').classList.remove('flipped');
+  if (!queue.length){ finish(); return; }
+  const card = deck.cards[queue[0]];
+  $('#frontText').textContent = card.front;
+  $('#backText').textContent  = card.back;
+  /* re-trigger the deal animation */
+  const scene = $('#flipScene');
+  scene.style.animation = 'none';
+  void scene.offsetWidth;
+  scene.style.animation = '';
+  updateProgress();
+}
+function doFlip(){
+  if (!queue.length) return;
+  flipped = !flipped;
+  $('#flipInner').classList.toggle('flipped', flipped);
+  if (flipped) flips++;
+}
+function requireFlip(){
+  if (!flipped){ toast('👀 Flip the card first! (Space)'); return true; }
+  return false;
+}
+function markAgain(){
+  if (requireFlip()) return;
+  const idx = queue.shift();
+  queue.splice(Math.min(4, queue.length), 0, idx); /* comes back in a few cards */
+  toast('↻ No shame. It\u2019ll come back around.');
+  showNext();
+}
+function markGot(){
+  if (requireFlip()) return;
+  queue.shift();
+  const mastered = deck.cards.length - queue.length;
+  toast('✓ ' + mastered + ' down, ' + queue.length + ' to go!');
+  showNext();
+}
+function finish(){
+  updateProgress();
+  $('#doneStats').innerHTML =
+    deck.cards.length + ' CARDS ✦ ' + flips + ' FLIPS ✦ 0 GATEKEEPING<br>THE BOWL IS PROUD OF YOU 🍜';
+  showView('doneView');
+  burst(90);
+}
+
+/* ================= file upload ================= */
+const dz = $('#dropzone');
+const fileInput = $('#fileInput');
+dz.addEventListener('click', () => fileInput.click());
+dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fileInput.click(); } });
+['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('drag'); }));
+['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('drag'); }));
+dz.addEventListener('drop', e => handleFile(e.dataTransfer.files[0]));
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); fileInput.value = ''; });
+
+function handleFile(file){
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const cards = parseDeckText(String(reader.result));
+    if (!cards.length){
+      toast('😕 Couldn\u2019t find any cards. Needs two columns: question, answer.');
+      return;
+    }
+    const name = file.name.replace(/\.[^.]+$/, '');
+    loadDeck({ name, cards: cards.slice(0, 5000) });
+    toast('📚 ' + cards.length + ' cards loaded. Let\u2019s go!');
+  };
+  reader.readAsText(file);
+}
+
+/* ================= demo deck ================= */
+const DEMO = {
+  name: 'Demo ✦ Music Fundamentals',
+  cards: [
+    { front:'What does \u201Ctempo\u201D mean?', back:'The speed of the music, measured in BPM (beats per minute).' },
+    { front:'How many beats does a quarter note get in 4/4?', back:'One beat. It\u2019s the pulse you nod your head to.' },
+    { front:'What\u2019s the difference between a major and minor chord?', back:'The third. Minor lowers it one semitone. Minor = sadder color.' },
+    { front:'Notes of the C major scale?', back:'C, D, E, F, G, A, B. No sharps, no flats. The friendly one.' },
+    { front:'What does a capo do?', back:'Clamps across the fretboard, raising the pitch of open strings so your shapes move key.' },
+    { front:'What is a riff?', back:'A repeated catchy pattern that carries the song. The hook\u2019s cool cousin.' },
+    { front:'What does \u201Cstaccato\u201D mean?', back:'Notes played short and detached. Punchy.' },
+    { front:'What is the backbeat?', back:'Beats 2 and 4. Where the snare lives. Where the head-nod lives.' },
+    { front:'What does \u201Cpalm mute\u201D mean?', back:'Resting your picking-hand palm lightly on the strings for a tight, chunky sound.' },
+    { front:'What\u2019s the interval from C to G?', back:'A perfect fifth. Seven semitones. The most reliable friendship in music.' }
+  ]
+};
+ $('#demoBtn').addEventListener('click', () => {
+  loadDeck(DEMO);
+  toast('🍜 Demo deck loaded. ' + DEMO.cards.length + ' cards of music brain food.');
+});
+
+/* ================= buttons + keys ================= */
+ $('#faceFront').addEventListener('click', doFlip);
+ $('#faceFront').addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); doFlip(); } });
+ $('#againBtn').addEventListener('click', markAgain);
+ $('#gotBtn').addEventListener('click', markGot);
+ $('#shuffleBtn').addEventListener('click', () => {
+  if (!queue.length) return;
+  shuffleArr(queue);
+  showNext();
+  toast('🔀 Shuffled. Chaos mode.');
+});
+ $('#restartBtn').addEventListener('click', () => { startSession(); toast('↺ Fresh session. Clean slate.'); });
+ $('#swapBtn').addEventListener('click', () => showView('uploadView'));
+ $('#againAllBtn').addEventListener('click', () => { startSession(); toast('Round two. You got this. 💪'); });
+ $('#newDeckBtn').addEventListener('click', () => showView('uploadView'));
+
+document.addEventListener('keydown', e => {
+  if (!$('#studyView').classList.contains('active')) return;
+  if (e.target.closest('button, input, textarea, [role="button"]') && e.code === 'Space') return;
+  if (e.code === 'Space'){ e.preventDefault(); doFlip(); }
+  else if (e.key === '1') markAgain();
+  else if (e.key === '2') markGot();
+  else if (e.key.toLowerCase() === 's') $('#shuffleBtn').click();
+  else if (e.key.toLowerCase() === 'r') $('#restartBtn').click();
+});
+
+/* ================= restore last deck ================= */
+(function restore(){
+  const saved = store.get('nf-deck');
+  if (!saved) return;
+  try {
+    const d = JSON.parse(saved);
+    if (d && d.cards && d.cards.length){
+      loadDeck(d, false);
+      toast('📚 Loaded your last deck: ' + d.name);
+    }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
