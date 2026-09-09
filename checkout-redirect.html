@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're In The Fam! | Noodlecafé Sessions</title>
+<meta name="description" content="Welcome to Noodlecafé Sessions. Your bowl is secured. Come say hi.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Archivo+Black&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* tokens */
+:root{
+  --cream:#FAF3EA;
+  --yellow:#F6E75F;
+  --pink:#F13C7D;
+  --pink-deep:#C9335C;
+  --pink-soft:#FDECEF;
+  --blue:#2E62F4;
+  --lav:#CDC5F2;
+  --ink:#161519;
+  --muted:#57534A;
+  --font-head:'Archivo Black','Archivo',sans-serif;
+  --font-body:'Archivo',sans-serif;
+  --font-pixel:'Silkscreen',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:var(--font-body);
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--pink);color:#fff}
+img,svg{display:block}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:3px dashed var(--pink);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1060px,92%);margin-inline:auto;position:relative;z-index:1}
+
+/* pixel bowl fills */
+.p-stick{fill:#8C5A2B}
+.p-steam{fill:var(--steam,#C9BFB3)}
+.p-noodle{fill:#F2C341}
+.p-green{fill:#59B36B}
+.p-white{fill:#FFF7EC}
+.p-naruto{fill:#F27BA4}
+.p-rim{fill:var(--bowl-rim,#C9335C)}
+.p-bowl{fill:var(--bowl-body,#EE4D74)}
+.p-foot{fill:var(--bowl-foot,#A82448)}
+.bowl{width:48px;aspect-ratio:16/14;height:auto}
+
+/* floating music notes */
+.fnote{
+  position:fixed;bottom:-50px;z-index:0;pointer-events:none;
+  opacity:0;animation:rise var(--d,10s) linear var(--delay,0s) infinite;
+}
+@keyframes rise{
+  0%{opacity:0;transform:translateY(0) rotate(0)}
+  12%{opacity:.5}
+  85%{opacity:.35}
+  100%{opacity:0;transform:translateY(-108vh) rotate(34deg)}
+}
+
+/* hero */
+.hero{text-align:center;padding:78px 0 30px;position:relative;z-index:1}
+.eyebrow{
+  font-weight:700;font-size:13px;letter-spacing:2.8px;text-transform:uppercase;color:var(--pink);
+  display:inline-block;background:var(--pink-soft);border:2px dashed var(--pink);
+  border-radius:999px;padding:9px 20px;
+}
+.hero h1{
+  font-family:var(--font-head);font-size:clamp(44px,9vw,108px);line-height:.98;
+  text-transform:uppercase;margin:26px 0 20px;
+}
+.hero h1 .spark-inline{display:inline-block;width:.55em;height:.55em;color:var(--pink);vertical-align:.32em;margin-left:.06em;animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{50%{opacity:.4;scale:.8}}
+.lede{max-width:620px;margin:0 auto;color:var(--muted);font-size:16.5px;line-height:1.7}
+.lede strong{color:var(--ink)}
+
+/* the clickable bowl */
+.bowl-btn{
+  background:none;border:0;cursor:pointer;margin:0 auto 8px;padding:0;
+  animation:hop 2.4s cubic-bezier(.34,1.3,.6,1) infinite;
+}
+.bowl-btn .hero-bowl{width:clamp(120px,16vw,170px);transition:filter .2s}
+.bowl-btn:hover .hero-bowl{filter:drop-shadow(0 14px 18px rgba(238,77,116,.35))}
+.bowl-btn.slurp .hero-bowl{animation:slurp .5s ease}
+@keyframes hop{
+  0%,100%{transform:translateY(0) scale(1,1)}
+  12%{transform:translateY(0) scale(1.07,.9)}
+  42%{transform:translateY(-24px) scale(.95,1.05)}
+  68%{transform:translateY(0) scale(1.06,.92)}
+  82%{transform:translateY(0) scale(1,1)}
+}
+@keyframes slurp{30%{transform:rotate(-11deg) scale(1.07)}60%{transform:rotate(8deg) scale(1.02)}}
+.slurp-hint{font-family:var(--font-pixel);font-size:10px;color:#B8AE9F;margin-top:10px}
+
+/* member card */
+.card-zone{display:flex;justify-content:center;padding:34px 0 10px;position:relative;z-index:1}
+.member-card{
+  width:min(520px,100%);background:var(--yellow);border:2.5px solid var(--ink);border-radius:20px;
+  padding:26px 28px 22px;position:relative;transform:rotate(-2deg);
+  box-shadow:0 24px 48px rgba(22,21,25,.16);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  animation:pop .7s cubic-bezier(.34,1.56,.64,1) 1.5s both;
+}
+.member-card:hover{transform:rotate(0deg) scale(1.02)}
+@keyframes pop{from{opacity:0;transform:translateY(34px) scale(.9) rotate(-6deg)}}
+.card-sticker{
+  position:absolute;top:-15px;right:22px;background:var(--pink);color:#fff;
+  font-family:var(--font-pixel);font-size:11px;padding:7px 13px;border-radius:999px;
+  transform:rotate(6deg);box-shadow:0 6px 14px rgba(238,77,116,.4);
+}
+.card-head{display:flex;align-items:center;gap:12px}
+.card-head .bowl{width:40px}
+.card-title{font-family:var(--font-pixel);font-weight:700;font-size:13px;line-height:1.25}
+.card-title .np{color:var(--pink)}
+.card-divider{border:0;border-top:2px dashed rgba(22,21,25,.25);margin:18px 0}
+.card-rows{display:grid;gap:12px}
+.card-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+.card-label{font-family:var(--font-pixel);font-size:10px;letter-spacing:1px;color:#8A8471}
+.card-value{font-family:var(--font-pixel);font-weight:700;font-size:13px;text-align:right}
+.card-value.hi{color:var(--pink-deep)}
+.barcode{
+  height:36px;margin-top:18px;border-radius:4px;
+  background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 6px,transparent 6px 11px,var(--ink) 11px 14px,transparent 14px 17px,var(--ink) 17px 18px,transparent 18px 23px);
+}
+.card-fineprint{font-family:var(--font-pixel);font-size:8px;color:#8A8471;margin-top:8px;letter-spacing:.5px}
+
+/* next steps */
+.steps{padding:64px 0 10px;position:relative;z-index:1}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;max-width:1020px;margin:0 auto}
+.step{
+  background:var(--yellow);border-radius:18px;padding:26px 24px;position:relative;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s;
+  animation:pop .7s cubic-bezier(.34,1.56,.64,1) both;
+}
+.step:nth-child(1){animation-delay:1.7s}
+.step:nth-child(2){animation-delay:1.85s}
+.step:nth-child(3){animation-delay:2s}
+.step:hover{transform:translateY(-8px) rotate(-.8deg);box-shadow:0 24px 44px rgba(22,21,25,.14)}
+.step-num{font-family:var(--font-pixel);font-weight:700;font-size:15px;color:var(--pink)}
+.step h3{font-family:var(--font-head);font-size:19px;margin:12px 0 10px;text-transform:uppercase}
+.step p{font-size:14.5px;line-height:1.6;color:#4C493F}
+.step p strong{color:var(--ink)}
+
+/* big cta */
+.cta-zone{text-align:center;padding:66px 0 20px;position:relative;z-index:1}
+.cta-zone .sub-note{margin-top:22px;font-size:14px;color:var(--muted);max-width:460px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:12px;text-decoration:none;border:0;cursor:pointer;
+  font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--ink);border-radius:999px;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+}
+.btn-yellow{background:var(--yellow);padding:12px 34px 12px 12px;border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.btn-yellow .ic{width:38px;height:38px;border-radius:50%;background:var(--pink);display:grid;place-items:center;color:#fff;transition:transform .3s}
+.btn-yellow .ic svg{transition:transform .3s}
+.btn:hover{transform:translateY(-3px) rotate(-2deg);box-shadow:8px 10px 0 var(--ink)}
+.btn:hover .ic svg{transform:rotate(90deg) scale(1.1)}
+
+/* footer */
+footer{border-top:2px dashed #E5DAC9;padding:34px 0 40px;text-align:center;position:relative;z-index:1;margin-top:60px}
+.foot-brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:12px}
+.foot-brand .bowl{width:34px}
+.brand-text{font-family:var(--font-pixel);font-weight:700;font-size:14px;line-height:1.15;text-align:left}
+.brand-text .np{color:var(--pink)}
+.foot-small{font-size:12.5px;color:var(--muted);line-height:1.9}
+.foot-hint{font-family:var(--font-pixel);font-size:9px;color:#B8AE9F;margin-top:10px}
+
+/* confetti */
+.confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.confetti{position:absolute;top:-40px;will-change:transform;animation:fall var(--dur,3.4s) linear var(--cdelay,0s) forwards}
+@keyframes fall{
+  to{transform:translate(var(--dx,0px),112vh) rotate(680deg);opacity:.85}
+}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;z-index:120;
+  background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:13px 22px;
+  display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;max-width:92vw;
+  box-shadow:0 14px 30px rgba(17,17,17,.2);pointer-events:none;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* rickroll modal */
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;visibility:hidden;opacity:0;transition:opacity .3s,visibility .3s}
+.modal.open{visibility:visible;opacity:1}
+.modal-backdrop{position:absolute;inset:0;background:rgba(22,21,25,.82)}
+.modal-card{
+  position:relative;width:min(680px,100%);background:var(--cream);border:3px solid var(--ink);
+  border-radius:20px;padding:20px;transform:scale(.85) rotate(-2deg);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 30px 70px rgba(0,0,0,.4);
+}
+.modal.open .modal-card{transform:scale(1) rotate(0)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}
+.modal-head h3{font-family:var(--font-head);font-size:17px;text-transform:uppercase}
+.modal-head p{font-family:var(--font-pixel);font-size:10px;color:var(--muted);margin-top:4px}
+.modal-close{
+  background:var(--pink);color:#fff;border:0;cursor:pointer;border-radius:999px;
+  padding:10px 18px;font-weight:700;font-size:12px;letter-spacing:.6px;text-transform:uppercase;flex-shrink:0;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.modal-close:hover{transform:rotate(-4deg) scale(1.06)}
+.video-wrap{position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;background:var(--ink)}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* responsive */
+@media (max-width:640px){
+  .hero{padding-top:56px}
+  .member-card{padding:22px 20px 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .fnote{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- svg symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bowl" viewBox="0 0 16 14" shape-rendering="crispEdges">
+    <path class="p-steam" d="M5 0h1v1H5zM10 0h1v1H10zM4 1h1v1H4zM6 1h1v1H6zM9 1h1v1H9zM11 1h1v1H11zM5 2h1v1H5zM10 2h1v1H10z"/>
+    <path class="p-stick" d="M12 0h1v1H12zM11 1h1v1H11zM10 2h1v1H10zM14 0h1v1H14zM13 1h1v1H13zM12 2h1v1H12z"/>
+    <path class="p-noodle" d="M3 3h10v1H3zM2 4h2v1H2zM5 4h1v1H5zM7 4h1v1H7zM9 4h2v1H9zM12 4h2v1H12zM2 5h1v1H2zM4 5h6v1H4zM11 5h3v1H11z"/>
+    <path class="p-green" d="M4 4h1v1H4zM8 4h1v1H8zM3 5h1v1H3zM10 5h1v1H10z"/>
+    <path class="p-white" d="M6 4h1v1H6z"/>
+    <path class="p-naruto" d="M11 4h1v1H11z"/>
+    <path class="p-rim" d="M1 6h14v1H1z"/>
+    <path class="p-bowl" d="M1 7h14v1H1zM1 8h14v1H1zM2 9h12v1H2zM3 10h10v1H3zM4 11h8v1H4zM5 12h6v1H5z"/>
+    <path class="p-foot" d="M6 13h4v1H6z"/>
+  </symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.9 7.4 4.6 11.1 12 12-7.4.9-11.1 4.6-12 12-.9-7.4-4.6-11.1-12-12C7.4 11.1 11.1 7.4 12 0z"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24" fill="none"><path d="M4 12h14.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M12 5.5 18.5 12 12 18.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- floating music notes -->
+<span class="fnote" style="left:6%;--d:11s;--delay:0s;color:var(--pink);font-size:20px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:16%;--d:14s;--delay:3s;color:var(--blue);font-size:15px" aria-hidden="true">♫</span>
+<span class="fnote" style="left:28%;--d:12s;--delay:6s;color:var(--lav);font-size:18px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:70%;--d:13s;--delay:1.5s;color:var(--pink);font-size:16px" aria-hidden="true">♫</span>
+<span class="fnote" style="left:82%;--d:10s;--delay:4.5s;color:var(--blue);font-size:20px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:92%;--d:15s;--delay:7s;color:var(--lav);font-size:14px" aria-hidden="true">✦</span>
+<span class="fnote" style="left:50%;--d:16s;--delay:9s;color:var(--pink);font-size:14px" aria-hidden="true">♪</span>
+
+<main>
+  <!-- hero -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Order confirmed ✦ welcome aboard</span>
+      <h1>You're in<br>the fam<span class="spark-inline"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><use href="#spark"/></svg></span></h1>
+      <button class="bowl-btn" id="bowlBtn" aria-label="Slurp the noodle bowl">
+        <svg class="bowl hero-bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+      </button>
+      <div class="slurp-hint" aria-hidden="true">CLICK THE BOWL. TRUST US.</div>
+      <p class="lede" style="margin-top:26px">Payment received, bowl secured. The fam is very happy to have you. Your <strong>receipt and access link</strong> are on the way from Whop, so peek at your inbox (and maybe spam, it gets shy).</p>
+    </div>
+  </section>
+
+  <!-- member card -->
+  <div class="card-zone">
+    <div class="member-card" role="img" aria-label="Official fam member card">
+      <span class="card-sticker">MEMBER ✦</span>
+      <div class="card-head">
+        <svg class="bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+        <div class="card-title">NOODLECAFÉ<br>SESSSIONS<span class="np"> ♪</span></div>
+      </div>
+      <hr class="card-divider">
+      <div class="card-rows">
+        <div class="card-row"><span class="card-label">MEMBER NO</span><span class="card-value" id="memberNo">NF-000000</span></div>
+        <div class="card-row"><span class="card-label">MEMBER SINCE</span><span class="card-value" id="memberSince">2025</span></div>
+        <div class="card-row"><span class="card-label">PLAN</span><span class="card-value hi" id="planName">FAM MEMBER</span></div>
+      </div>
+      <div class="barcode" aria-hidden="true"></div>
+      <p class="card-fineprint">SLURP TO VERIFY. NON-TRANSFERABLE. SNACKS NOT INCLUDED.</p>
+    </div>
+  </div>
+
+  <!-- next steps -->
+  <section class="steps">
+    <div class="wrap">
+      <div class="steps-grid">
+        <article class="step">
+          <span class="step-num">01</span>
+          <h3>Check your email</h3>
+          <p>Your Whop receipt and access link are heading to your inbox right now. Give it a minute. If nothing shows up, <strong>reply to the receipt</strong> and a human will fix it.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">02</span>
+          <h3>Enter the café</h3>
+          <p>The community lives on Whop. Pop in, introduce yourself, and don't be shy. It's <strong>zero judgment</strong> in there. That's the whole point.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">03</span>
+          <h3>Make it weird</h3>
+          <p>Post a half-finished track. Ask why something sounds bad. Lurk for a week if you want. <strong>There's no wrong way</strong> to be in this fam.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- big cta -->
+  <section class="cta-zone">
+    <div class="wrap">
+      <!-- TODO: swap this href for your Whop community invite link! -->
+      <a class="btn btn-yellow" href="https://whop.com/noodlecafe-sessions/" target="_blank" rel="noopener">
+        <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#spark"/></svg></span>
+        Enter the café
+      </a>
+      <p class="sub-note">Something off with your order? Just reply to your Whop receipt email and we'll sort it out. No robots, no runaround.</p>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer>
+  <div class="wrap">
+    <a class="foot-brand" href="#top">
+      <svg class="bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+      <span class="brand-text">noodlecafé<br>sesssions<span class="np"> ♪</span></span>
+    </a>
+    <p class="foot-small">No bullshit. No gatekeeping. Just music. 🍜</p>
+    <p class="foot-hint" aria-hidden="true">PSST. THE BOWL HAS SECRETS.</p>
+  </div>
+</footer>
+
+<!-- confetti layer -->
+<div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+<!-- toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+
+<!-- secret sauce modal (a.k.a. the rickroll) -->
+<div class="modal" id="rickModal" role="dialog" aria-modal="true" aria-label="Secret unlocked">
+  <div class="modal-backdrop" id="rickBackdrop"></div>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h3>🍜 Secret sauce unlocked</h3>
+        <p>you slurped 5 times. honestly, respect.</p>
+      </div>
+      <button class="modal-close" id="rickClose">Close</button>
+    </div>
+    <div class="video-wrap">
+      <iframe id="rickVideo" title="Secret video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+const $  = s => document.querySelector(s);
+
+/* ---- confetti: noodles, notes and stars raining down ---- */
+(function confetti(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const layer = $('#confettiLayer');
+  const chars = ['🍜','✦','♪','♫','★','🍜','♪'];
+  const colors = ['#F13C7D','#F6E75F','#2E62F4','#CDC5F2','#F27BA4'];
+  const count = 70;
+  for (let i = 0; i < count; i++){
+    const el = document.createElement('span');
+    el.className = 'confetti';
+    const isBlock = Math.random() < .3;
+    if (isBlock){
+      const size = 6 + Math.random() * 8;
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.borderRadius = Math.random() < .5 ? '50%' : '2px';
+    } else {
+      el.textContent = chars[Math.floor(Math.random() * chars.length)];
+      el.style.fontSize = (12 + Math.random() * 14) + 'px';
+      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.setProperty('--dx', (Math.random() * 160 - 80) + 'px');
+    el.style.setProperty('--dur', (2.8 + Math.random() * 2.6) + 's');
+    el.style.setProperty('--cdelay', (Math.random() * 1.4) + 's');
+    el.addEventListener('animationend', () => el.remove());
+    layer.appendChild(el);
+  }
+})();
+
+/* ---- member card data ---- */
+let memberNo = localStorage.getItem('nf-member');
+if (!memberNo){
+  memberNo = 'NF-' + String(Math.floor(100000 + Math.random() * 900000));
+  localStorage.setItem('nf-member', memberNo);
+}
+ $('#memberNo').textContent = memberNo;
+ $('#memberSince').textContent = new Date().getFullYear();
+
+/* optional: auto-detect plan from the redirect url, e.g. thank-you.html?plan=yearly */
+const planParam = new URLSearchParams(location.search).get('plan');
+const planNames = {
+  monthly:  'THE MONTHLY REGULAR',
+  yearly:   'THE YEARLY REGULAR',
+  lifetime: 'THE BIG SLURP',
+  once:     'THE BIG SLURP'
+};
+ $('#planName').textContent = planNames[planParam] || 'FAM MEMBER';
+
+/* ---- toast ---- */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast');
+  $('#toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3600);
+}
+
+/* ---- the bowl easter egg ---- */
+const slurpMsgs = [
+  'SLURP! 🍜',
+  'careful, it\u2019s hot!',
+  'that\u2019s the good stuff.',
+  'one more slurp unlocks something\u2026 👀',
+  'the bowl approves.',
+  'extra noodles granted.',
+  'chef\u2019s kiss.',
+  'okay okay, the bowl is blushing.'
+];
+let slurps = 0;
+const bowlBtn = $('#bowlBtn');
+bowlBtn.addEventListener('click', () => {
+  slurps++;
+  bowlBtn.classList.remove('slurp');
+  void bowlBtn.offsetWidth; /* restart animation */
+  bowlBtn.classList.add('slurp');
+  if (slurps % 5 === 0){
+    openRick();
+    toast('😏 never gonna give you up\u2026');
+  } else {
+    toast(slurpMsgs[Math.floor(Math.random() * slurpMsgs.length)]);
+  }
+});
+
+/* ---- rickroll modal ---- */
+const rickModal = $('#rickModal');
+const rickVideo = $('#rickVideo');
+function openRick(){
+  rickVideo.src = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1';
+  rickModal.classList.add('open');
+}
+function closeRick(){
+  rickVideo.src = ''; /* stops the music */
+  rickModal.classList.remove('open');
+}
+ $('#rickClose').addEventListener('click', closeRick);
+ $('#rickBackdrop').addEventListener('click', closeRick);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRick(); });
+</script>
+</body>
+</html>
