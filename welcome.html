@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Here | Noodlecafé Sessions</title>
+<meta name="description" content="Welcome to Noodlecafé Sessions. Watch the tour, check off your first moves, and make yourself at home.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Archivo+Black&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* tokens */
+:root{
+  --cream:#FAF3EA;
+  --yellow:#F6E75F;
+  --pink:#F13C7D;
+  --pink-deep:#C9335C;
+  --pink-soft:#FDECEF;
+  --blue:#2E62F4;
+  --lav:#CDC5F2;
+  --ink:#161519;
+  --muted:#57534A;
+  --font-head:'Archivo Black','Archivo',sans-serif;
+  --font-body:'Archivo',sans-serif;
+  --font-pixel:'Silkscreen',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:var(--font-body);
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--pink);color:#fff}
+img,svg{display:block}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:3px dashed var(--pink);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1000px,92%);margin-inline:auto;position:relative;z-index:1}
+
+/* pixel bowl fills */
+.p-stick{fill:#8C5A2B}
+.p-steam{fill:var(--steam,#C9BFB3)}
+.p-noodle{fill:#F2C341}
+.p-green{fill:#59B36B}
+.p-white{fill:#FFF7EC}
+.p-naruto{fill:#F27BA4}
+.p-rim{fill:var(--bowl-rim,#C9335C)}
+.p-bowl{fill:var(--bowl-body,#EE4D74)}
+.p-foot{fill:var(--bowl-foot,#A82448)}
+.bowl{width:48px;aspect-ratio:16/14;height:auto}
+
+/* floating music notes */
+.fnote{
+  position:fixed;bottom:-50px;z-index:0;pointer-events:none;
+  opacity:0;animation:rise var(--d,10s) linear var(--delay,0s) infinite;
+}
+@keyframes rise{
+  0%{opacity:0;transform:translateY(0) rotate(0)}
+  12%{opacity:.5}
+  85%{opacity:.35}
+  100%{opacity:0;transform:translateY(-108vh) rotate(34deg)}
+}
+
+/* hero */
+.hero{text-align:center;padding:74px 0 20px;position:relative;z-index:1}
+.eyebrow{
+  font-weight:700;font-size:13px;letter-spacing:2.8px;text-transform:uppercase;color:var(--pink);
+  display:inline-block;background:var(--pink-soft);border:2px dashed var(--pink);
+  border-radius:999px;padding:9px 20px;
+}
+.hero h1{
+  font-family:var(--font-head);font-size:clamp(42px,8.5vw,96px);line-height:.98;
+  text-transform:uppercase;margin:24px 0 18px;
+}
+.hero h1 .spark-inline{display:inline-block;width:.55em;height:.55em;color:var(--pink);vertical-align:.32em;margin-left:.06em;animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{50%{opacity:.4;scale:.8}}
+.lede{max-width:600px;margin:0 auto;color:var(--muted);font-size:16.5px;line-height:1.7}
+.lede strong{color:var(--ink)}
+.class-chip{font-family:var(--font-pixel);font-size:11px;color:var(--pink-deep);margin-top:18px;letter-spacing:1px}
+.bowl-btn{background:none;border:0;cursor:pointer;margin:26px auto 0;padding:0}
+.bowl-btn .hero-bowl{width:clamp(96px,13vw,140px);transition:filter .2s;animation:hop 2.4s cubic-bezier(.34,1.3,.6,1) infinite}
+.bowl-btn:hover .hero-bowl{filter:drop-shadow(0 14px 18px rgba(238,77,116,.35))}
+.bowl-btn.slurp .hero-bowl{animation:slurp .5s ease}
+@keyframes hop{
+  0%,100%{transform:translateY(0) scale(1,1)}
+  12%{transform:translateY(0) scale(1.07,.9)}
+  42%{transform:translateY(-20px) scale(.95,1.05)}
+  68%{transform:translateY(0) scale(1.06,.92)}
+  82%{transform:translateY(0) scale(1,1)}
+}
+@keyframes slurp{30%{transform:rotate(-11deg) scale(1.07)}60%{transform:rotate(8deg) scale(1.02)}}
+
+/* video */
+.video-sec{padding:56px 0 10px;position:relative;z-index:1}
+.video-card{
+  max-width:860px;margin:0 auto;background:var(--ink);border-radius:22px;padding:14px;
+  box-shadow:0 26px 55px rgba(22,21,25,.22);
+}
+.video-frame{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--blue)}
+.video-poster{
+  position:absolute;inset:0;width:100%;height:100%;border:0;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.14) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 30%, rgba(255,255,255,.12) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 78%, rgba(255,255,255,.1) 0 2px, transparent 3px),
+    var(--blue);
+}
+.poster-tag{
+  font-family:var(--font-pixel);font-size:11px;color:#fff;background:rgba(22,21,25,.35);
+  padding:7px 14px;border-radius:999px;letter-spacing:1px;
+}
+.play-btn{
+  width:86px;height:86px;border-radius:50%;background:var(--pink);display:grid;place-items:center;
+  box-shadow:0 14px 30px rgba(0,0,0,.35);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.video-poster:hover .play-btn{transform:scale(1.12) rotate(-6deg)}
+.play-btn svg{width:34px;height:34px;fill:#fff;margin-left:6px}
+.poster-title{font-family:var(--font-head);color:#fff;font-size:clamp(18px,3.4vw,28px);text-transform:uppercase;letter-spacing:.5px}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-caption{max-width:860px;margin:16px auto 0;text-align:center;font-size:14px;color:var(--muted);line-height:1.7}
+.video-caption strong{color:var(--ink)}
+
+/* checklist */
+.checklist-sec{padding:64px 0 10px;position:relative;z-index:1}
+.checklist{
+  max-width:720px;margin:0 auto;background:var(--yellow);border:2.5px solid var(--ink);
+  border-radius:20px;padding:28px 28px 24px;position:relative;
+  box-shadow:8px 8px 0 var(--ink);
+}
+.cl-sticker{
+  position:absolute;top:-15px;right:24px;background:var(--pink);color:#fff;
+  font-family:var(--font-pixel);font-size:11px;padding:7px 13px;border-radius:999px;
+  transform:rotate(5deg);box-shadow:0 6px 14px rgba(238,77,116,.4);
+}
+.checklist h2{font-family:var(--font-head);font-size:clamp(22px,4vw,30px);text-transform:uppercase}
+.cl-sub{font-size:14px;color:#6B675C;margin:8px 0 20px}
+.cl-status{
+  font-family:var(--font-pixel);font-size:10px;letter-spacing:1px;color:var(--pink-deep);
+  border:2px dashed var(--pink);border-radius:999px;padding:6px 12px;display:inline-block;margin-bottom:20px;
+}
+.cl-list{list-style:none;display:grid;gap:12px}
+.check{
+  width:100%;display:flex;align-items:center;gap:16px;background:var(--cream);
+  border:2px solid var(--ink);border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+}
+.check:hover{transform:translateY(-2px);box-shadow:4px 4px 0 var(--ink)}
+.check .box{
+  width:32px;height:32px;flex-shrink:0;border-radius:9px;border:2.5px solid var(--ink);
+  background:#fff;display:grid;place-items:center;
+  transition:background .2s,transform .2s;
+}
+.check .box svg{width:18px;height:18px;stroke:#fff;stroke-width:3.4;fill:none;opacity:0;transform:scale(.4);transition:opacity .2s,transform .25s cubic-bezier(.34,1.56,.64,1)}
+.check[aria-checked="true"] .box{background:var(--pink)}
+.check[aria-checked="true"] .box svg{opacity:1;transform:scale(1)}
+.check .check-text strong{display:block;font-size:15.5px}
+.check[aria-checked="true"] .check-text strong{text-decoration:line-through;text-decoration-color:var(--pink);text-decoration-thickness:3px}
+.check .check-text small{display:block;font-size:12.5px;color:#6B675C;margin-top:2px}
+.cl-progress{margin-top:22px}
+.bar-track{height:14px;background:var(--cream);border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:var(--pink);border-radius:999px;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.bar-label{font-family:var(--font-pixel);font-size:10px;color:#8A8471;margin-top:10px;letter-spacing:1px}
+
+/* rules */
+.rules-sec{padding:64px 0 10px;position:relative;z-index:1}
+.rules{
+  max-width:720px;margin:0 auto;background:var(--pink-soft);border:2px dashed var(--pink);
+  border-radius:20px;padding:26px 28px;
+}
+.rules h2{font-family:var(--font-head);font-size:clamp(20px,3.6vw,26px);text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.rules h2 svg{width:34px;height:34px;color:var(--pink);flex-shrink:0}
+.rules ul{list-style:none;margin-top:16px;display:grid;gap:12px}
+.rules li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.55}
+.rules li svg{width:15px;height:15px;flex-shrink:0;margin-top:5px;color:var(--pink)}
+.rules li strong{color:var(--pink-deep)}
+
+/* quick links */
+.links-sec{padding:64px 0 20px;position:relative;z-index:1}
+.links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;max-width:900px;margin:0 auto}
+.qcard{
+  background:var(--yellow);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:8px;
+  text-decoration:none;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s;
+}
+.qcard:hover{transform:translateY(-8px) rotate(-.8deg);box-shadow:0 24px 44px rgba(22,21,25,.14)}
+.qcard-emoji{font-size:30px;line-height:1}
+.qcard h3{font-family:var(--font-head);font-size:18px;text-transform:uppercase}
+.qcard p{font-size:13.5px;color:#4C493F;line-height:1.55;flex:1}
+.qcard-go{
+  margin-top:14px;display:flex;align-items:center;justify-content:space-between;
+  font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;
+}
+.circ{
+  width:42px;height:42px;border-radius:50%;background:var(--pink);color:#fff;
+  display:grid;place-items:center;flex-shrink:0;transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.qcard:hover .circ{transform:rotate(-10deg) scale(1.12)}
+
+/* footer */
+footer{border-top:2px dashed #E5DAC9;padding:34px 0 40px;text-align:center;position:relative;z-index:1;margin-top:50px}
+.foot-brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:12px}
+.foot-brand .bowl{width:34px}
+.brand-text{font-family:var(--font-pixel);font-weight:700;font-size:14px;line-height:1.15;text-align:left}
+.brand-text .np{color:var(--pink)}
+.foot-small{font-size:12.5px;color:var(--muted);line-height:1.9}
+
+/* confetti */
+.confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.confetti{position:absolute;top:-40px;will-change:transform;animation:fall var(--dur,3.2s) linear var(--cdelay,0s) forwards}
+@keyframes fall{to{transform:translate(var(--dx,0px),112vh) rotate(680deg);opacity:.85}}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;z-index:120;
+  background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:13px 22px;
+  display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;max-width:92vw;
+  box-shadow:0 14px 30px rgba(17,17,17,.2);pointer-events:none;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* responsive */
+@media (max-width:640px){
+  .hero{padding-top:52px}
+  .checklist{padding:22px 18px 20px}
+  .check .check-text small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .fnote{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- svg symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bowl" viewBox="0 0 16 14" shape-rendering="crispEdges">
+    <path class="p-steam" d="M5 0h1v1H5zM10 0h1v1H10zM4 1h1v1H4zM6 1h1v1H6zM9 1h1v1H9zM11 1h1v1H11zM5 2h1v1H5zM10 2h1v1H10z"/>
+    <path class="p-stick" d="M12 0h1v1H12zM11 1h1v1H11zM10 2h1v1H10zM14 0h1v1H14zM13 1h1v1H13zM12 2h1v1H12z"/>
+    <path class="p-noodle" d="M3 3h10v1H3zM2 4h2v1H2zM5 4h1v1H5zM7 4h1v1H7zM9 4h2v1H9zM12 4h2v1H12zM2 5h1v1H2zM4 5h6v1H4zM11 5h3v1H11z"/>
+    <path class="p-green" d="M4 4h1v1H4zM8 4h1v1H8zM3 5h1v1H3zM10 5h1v1H10z"/>
+    <path class="p-white" d="M6 4h1v1H6z"/>
+    <path class="p-naruto" d="M11 4h1v1H11z"/>
+    <path class="p-rim" d="M1 6h14v1H1z"/>
+    <path class="p-bowl" d="M1 7h14v1H1zM1 8h14v1H1zM2 9h12v1H2zM3 10h10v1H3zM4 11h8v1H4zM5 12h6v1H5z"/>
+    <path class="p-foot" d="M6 13h4v1H6z"/>
+  </symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.9 7.4 4.6 11.1 12 12-7.4.9-11.1 4.6-12 12-.9-7.4-4.6-11.1-12-12C7.4 11.1 11.1 7.4 12 0z"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24" fill="none"><path d="M4 12h14.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M12 5.5 18.5 12 12 18.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="play" viewBox="0 0 24 24"><path d="M6 3.8v16.4c0 1.2 1.3 1.9 2.3 1.3l13-8.2c.9-.6.9-2 0-2.6l-13-8.2C7.3 1.9 6 2.6 6 3.8z"/></symbol>
+  <symbol id="smiley" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+    <circle cx="24" cy="24" r="19.5"/>
+    <path d="M14.5 17.5l6.5 6.5M21 17.5l-6.5 6.5M27 17.5l6.5 6.5M33.5 17.5l-6.5 6.5"/>
+    <path d="M14 30q2.4 3.6 4.8 0t4.8 0t4.8 0t4.8 0"/>
+  </symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- floating music notes -->
+<span class="fnote" style="left:5%;--d:12s;--delay:0s;color:var(--pink);font-size:20px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:14%;--d:15s;--delay:3s;color:var(--blue);font-size:15px" aria-hidden="true">♫</span>
+<span class="fnote" style="left:26%;--d:13s;--delay:6s;color:var(--lav);font-size:18px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:72%;--d:14s;--delay:1.5s;color:var(--pink);font-size:16px" aria-hidden="true">♫</span>
+<span class="fnote" style="left:84%;--d:11s;--delay:4.5s;color:var(--blue);font-size:20px" aria-hidden="true">♪</span>
+<span class="fnote" style="left:93%;--d:16s;--delay:7s;color:var(--lav);font-size:14px" aria-hidden="true">✦</span>
+
+<main>
+  <!-- hero -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">New member orientation ✦ start here</span>
+      <h1>Welcome to<br>the fam<span class="spark-inline"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><use href="#spark"/></svg></span></h1>
+      <p class="lede">You just joined a community of people who are all figuring it out together. No experts on pedestals, no gatekeeping, no pressure. <strong>Here's how to get comfy fast.</strong></p>
+      <p class="class-chip" id="classChip">CLASS OF 2025 ✦ OFFICIAL MEMBER</p>
+      <button class="bowl-btn" id="bowlBtn" aria-label="Slurp the noodle bowl">
+        <svg class="bowl hero-bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- video -->
+  <section class="video-sec">
+    <div class="wrap">
+      <div class="video-card">
+        <div class="video-frame" id="videoFrame">
+          <button class="video-poster" id="videoPoster" aria-label="Play the welcome video">
+            <span class="poster-tag">✦ 4 MIN WATCH</span>
+            <span class="play-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#play"/></svg></span>
+            <span class="poster-title">The Noodlecafé Tour</span>
+          </button>
+        </div>
+      </div>
+      <p class="video-caption"><strong>Start with this.</strong> A quick tour of how everything works: where the courses live, how to ask questions, and where to post your very first track.</p>
+    </div>
+  </section>
+
+  <!-- checklist -->
+  <section class="checklist-sec">
+    <div class="wrap">
+      <div class="checklist">
+        <span class="cl-sticker" id="clSticker">NEW FAM ✦</span>
+        <h2>Your first moves</h2>
+        <p class="cl-sub">Do these in any order. Your progress saves on this device.</p>
+        <span class="cl-status" id="clStatus">STATUS: BRAND NEW</span>
+        <ul class="cl-list">
+          <li>
+            <button class="check" role="checkbox" aria-checked="false" data-key="video">
+              <span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg></span>
+              <span class="check-text"><strong>Watch the welcome video</strong><small>It's right above. Four minutes, promise.</small></span>
+            </button>
+          </li>
+          <li>
+            <button class="check" role="checkbox" aria-checked="false" data-key="intro">
+              <span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg></span>
+              <span class="check-text"><strong>Introduce yourself in The Café</strong><small>Name, what you make, what you're stuck on. That's it.</small></span>
+            </button>
+          </li>
+          <li>
+            <button class="check" role="checkbox" aria-checked="false" data-key="course">
+              <span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg></span>
+              <span class="check-text"><strong>Start Part 1: The Fundamentals</strong><small>Even just lesson one. Momentum beats motivation.</small></span>
+            </button>
+          </li>
+          <li>
+            <button class="check" role="checkbox" aria-checked="false" data-key="post">
+              <span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#check"/></svg></span>
+              <span class="check-text"><strong>Post one thing in Track Feedback</strong><small>Unfinished, messy, whatever. That's what it's for.</small></span>
+            </button>
+          </li>
+        </ul>
+        <div class="cl-progress">
+          <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+          <p class="bar-label" id="barLabel">0/4 DONE</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- rules -->
+  <section class="rules-sec">
+    <div class="wrap">
+      <div class="rules">
+        <h2><svg aria-hidden="true"><use href="#smiley"/></svg>House rules</h2>
+        <ul>
+          <li><svg aria-hidden="true"><use href="#spark"/></svg><span><strong>No gatekeeping.</strong> Ever. If you know something, share it. If you don't, ask.</span></li>
+          <li><svg aria-hidden="true"><use href="#plus"/></svg><span><strong>There are no dumb questions.</strong> The whole point of this place is asking "why does this sound bad?" and getting a real answer.</span></li>
+          <li><svg aria-hidden="true"><use href="#check"/></svg><span><strong>Half-finished tracks are welcome.</strong> Done is prettier than perfect, and perfect doesn't exist anyway.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- quick links -->
+  <section class="links-sec">
+    <div class="wrap">
+      <div class="links-grid">
+        <a class="qcard" id="linkCourse" href="https://whop.com/noodlecafe-sessions/exp_Z0TSXJnEbSk1U3/app/">
+          <span class="qcard-emoji" aria-hidden="true">🎸</span>
+          <h3>Start the courses</h3>
+          <p>Fundamentals, Melody, Harmony. Everything's unlocked, go at your own pace.</p>
+          <span class="qcard-go"><span>Go learn</span><span class="circ"><svg width="18" height="18" viewBox="0 0 24 24"><use href="#arrow"/></svg></span></span>
+        </a>
+        <a class="qcard" id="linkCafe" href="https://whop.com/noodlecafe-sessions/exp_XJulTv3xEoKq2o/app/" target="_blank" rel="noopener">
+          <span class="qcard-emoji" aria-hidden="true">☕</span>
+          <h3>Enter The Café</h3>
+          <p>The community itself. Say hi, meet the fam, lurk as long as you need.</p>
+          <span class="qcard-go"><span>Go hang out</span><span class="circ"><svg width="18" height="18" viewBox="0 0 24 24"><use href="#arrow"/></svg></span></span>
+        </a>
+        <a class="qcard" id="linkFeedback" href="https://whop.com/noodlecafe-sessions/exp_XJulTv3xEoKq2o/app/" target="_blank" rel="noopener">
+          <span class="qcard-emoji" aria-hidden="true">🎧</span>
+          <h3>Track Feedback</h3>
+          <p>Drop a work in progress and get real, kind, useful notes back.</p>
+          <span class="qcard-go"><span>Go post</span><span class="circ"><svg width="18" height="18" viewBox="0 0 24 24"><use href="#arrow"/></svg></span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer>
+  <div class="wrap">
+    <a class="foot-brand" href="#top">
+      <svg class="bowl" viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>
+      <span class="brand-text">noodlecafé<br>sesssions<span class="np"> ♪</span></span>
+    </a>
+    <p class="foot-small">No bullshit. No gatekeeping. Just music. 🍜</p>
+  </div>
+</footer>
+
+<!-- confetti layer -->
+<div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+<!-- toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+
+<script>
+/* ============================================
+   EDIT THESE! One place for all your links.
+   The video accepts a full YouTube URL OR just
+   the video ID. Right now it's a rickroll on
+   purpose so you don't forget to change it. 😅
+============================================ */
+const CONFIG = {
+  video: "https://www.youtube.com/watch?v=RTAoP0HdmEo",  // TODO: your welcome video!
+  community: "https://whop.com/noodlecafe-sessions"       // TODO: your Whop invite link
+};
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+};
+
+/* ---- video: click-to-load facade ---- */
+function ytId(url){
+  const m = String(url).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : String(url).trim();
+}
+let videoLoaded = false;
+ $('#videoPoster').addEventListener('click', () => {
+  if (videoLoaded) return;
+  videoLoaded = true;
+  const iframe = document.createElement('iframe');
+  iframe.title = 'Welcome video';
+  iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytId(CONFIG.video) + '?autoplay=1&rel=0';
+  iframe.allow = 'autoplay; encrypted-media';
+  iframe.allowFullscreen = true;
+  $('#videoFrame').appendChild(iframe);
+  $('#videoPoster').remove();
+});
+
+/* ---- quick links pull from CONFIG ---- */
+ $('#linkCafe').href = CONFIG.community;
+ $('#linkFeedback').href = CONFIG.community;
+
+/* ---- toast ---- */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast');
+  $('#toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3600);
+}
+
+/* ---- confetti burst ---- */
+function burst(count = 55){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const layer = $('#confettiLayer');
+  const chars = ['🍜','✦','♪','♫','★'];
+  const colors = ['#F13C7D','#F6E75F','#2E62F4','#CDC5F2','#F27BA4'];
+  for (let i = 0; i < count; i++){
+    const el = document.createElement('span');
+    el.className = 'confetti';
+    if (Math.random() < .3){
+      const size = 6 + Math.random() * 8;
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.borderRadius = Math.random() < .5 ? '50%' : '2px';
+    } else {
+      el.textContent = chars[Math.floor(Math.random() * chars.length)];
+      el.style.fontSize = (12 + Math.random() * 14) + 'px';
+      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.setProperty('--dx', (Math.random() * 160 - 80) + 'px');
+    el.style.setProperty('--dur', (2.6 + Math.random() * 2.4) + 's');
+    el.style.setProperty('--cdelay', (Math.random() * .8) + 's');
+    el.addEventListener('animationend', () => el.remove());
+    layer.appendChild(el);
+  }
+}
+
+/* ---- checklist ---- */
+const checks = $$('.check');
+const barFill = $('#barFill');
+const barLabel = $('#barLabel');
+const clStatus = $('#clStatus');
+const clSticker = $('#clSticker');
+
+function updateChecklist(){
+  const done = checks.filter(c => c.getAttribute('aria-checked') === 'true').length;
+  barFill.style.width = (done / checks.length * 100) + '%';
+  barLabel.textContent = done + '/' + checks.length + ' DONE';
+  if (done === checks.length){
+    clStatus.textContent = 'STATUS: CERTIFIED FAM ✦';
+    clSticker.textContent = 'OFFICIALLY NOT NEW ✦';
+  }
+}
+checks.forEach(c => {
+  const saved = store.get('nf-check-' + c.dataset.key);
+  if (saved === '1'){
+    c.setAttribute('aria-checked', 'true');
+    c.querySelector('.box svg').style.opacity = '1';
+  }
+  c.addEventListener('click', () => {
+    const on = c.getAttribute('aria-checked') !== 'true';
+    c.setAttribute('aria-checked', on ? 'true' : 'false');
+    store.set('nf-check-' + c.dataset.key, on ? '1' : '0');
+    updateChecklist();
+    if (on && checks.every(x => x.getAttribute('aria-checked') === 'true')){
+      burst(70);
+      toast('🎉 Certified fam member. You\u2019re basically a regular now.');
+    } else if (on){
+      toast('Nice! ✦ ' + c.querySelector('strong').textContent);
+    }
+  });
+});
+updateChecklist();
+
+/* ---- class of <year> ---- */
+ $('#classChip').textContent = 'CLASS OF ' + new Date().getFullYear() + ' ✦ OFFICIAL MEMBER';
+
+/* ---- bowl easter egg ---- */
+const slurpMsgs = [
+  'SLURP! 🍜',
+  'welcome! it\u2019s hot, be careful.',
+  'that\u2019s the good stuff.',
+  'the bowl likes you.',
+  'extra noodles granted.',
+  'okay okay, the bowl is blushing.',
+  'chef\u2019s kiss.'
+];
+let slurps = 0;
+const bowlBtn = $('#bowlBtn');
+bowlBtn.addEventListener('click', () => {
+  slurps++;
+  bowlBtn.classList.remove('slurp');
+  void bowlBtn.offsetWidth;
+  bowlBtn.classList.add('slurp');
+  if (slurps % 7 === 0){
+    burst(60);
+    toast('🥢 secret noodles unlocked. welcome home.');
+  } else {
+    toast(slurpMsgs[Math.floor(Math.random() * slurpMsgs.length)]);
+  }
+});
+</script>
+</body>
+</html>
