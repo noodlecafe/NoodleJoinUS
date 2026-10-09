@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make a Full Song. Finally. , Noodlecafé Sessions, 7 Days Free</title>
+<meta name="description" content="Go from a half-finished idea to a song you can actually share. 12 browser tools, a course path, and a fam. 7 days free , $0.00 due today, then $9.99/mo.">
+<!-- After deploying to your own domain, update the two absolute URLs below (og:url, og:image) -->
+<meta property="og:title" content="Make a full song. Finally. , 7 days free">
+<meta property="og:description" content="Tools, lessons, and a fam to finish your first real song. $0.00 due today · then $9.99/mo · cancel anytime.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noodlecafe.github.io/NoodleJoinUS/">
+<meta property="og:image" content="https://noodlecafe.github.io/NoodleJoinUS/assets/promo-poster.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700;900&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAF3EA; --cream2:#FFFBF4; --yellow:#F6E75F; --yellow2:#FBF3A3;
+  --pink:#F13C7D; --pink-deep:#C9335C; --blue:#2E62F4; --lav:#CDC5F2;
+  --ink:#161519; --card:#FFFDF8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream); color:var(--ink);
+  font-family:'Archivo',Arial,sans-serif; font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+h1,h2,h3,.bfont{font-family:'Archivo Black','Arial Black',sans-serif; font-weight:400; text-transform:uppercase; line-height:1.02; letter-spacing:-.015em}
+.pixel{font-family:'Silkscreen','Courier New',monospace}
+a{color:inherit}
+img,svg,video{display:block;max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.wrap-wide{max-width:1200px}
+
+/* ---------- focus / a11y ---------- */
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;z-index:200;border-radius:0 0 10px 0;font-weight:700}
+.skip:focus{left:0}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:60;background:rgba(250,243,234,.92);backdrop-filter:blur(8px);border-bottom:2px dashed rgba(22,21,25,.25)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand .btxt{font-family:'Archivo Black';font-size:.92rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.05}
+.brand .btxt em{display:block;font-style:normal;color:var(--pink);font-size:.72rem;letter-spacing:.28em}
+.bowl{width:36px;height:auto;flex:0 0 auto}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:12px;justify-content:center;
+  background:var(--yellow);color:var(--ink);text-decoration:none;
+  font-family:'Archivo Black';text-transform:uppercase;letter-spacing:.02em;
+  border:3px solid var(--ink);border-radius:999px;
+  box-shadow:5px 5px 0 var(--ink);
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+  cursor:pointer;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink);background:var(--yellow2)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn .arr{flex:0 0 auto}
+.btn-sm{font-size:.85rem;padding:.62em 1.25em;box-shadow:4px 4px 0 var(--ink)}
+.btn-mega{
+  font-size:clamp(1.15rem,3.4vw,1.6rem);
+  padding:1.05em 1.9em;position:relative;white-space:nowrap;
+}
+.btn-mega::after{ /* attention ping */
+  content:"";position:absolute;inset:-3px;border-radius:999px;
+  border:3px solid var(--pink);opacity:0;animation:ping 2.4s ease-out infinite;pointer-events:none;
+}
+@keyframes ping{
+  0%{transform:scale(1);opacity:.75}
+  70%,100%{transform:scale(1.14,1.55);opacity:0}
+}
+
+/* ---------- hero (2-col on desktop: copy left, video right) ---------- */
+.hero{padding:52px 0 60px;text-align:center;position:relative}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+@media (min-width:980px){
+  .hero-grid{grid-template-columns:.94fr 1.06fr;gap:44px}
+  .hero-copy{text-align:center}
+}
+.pill{
+  display:inline-block;background:#fff;border:2px dashed var(--pink-deep);color:var(--pink-deep);
+  border-radius:999px;padding:.55em 1.3em;font-size:clamp(.62rem,2vw,.8rem);letter-spacing:.12em;
+  text-transform:uppercase;font-family:'Silkscreen';line-height:1.5;
+}
+.hero h1{font-size:clamp(2.4rem,5.4vw,4rem);margin:22px auto 0;max-width:12ch}
+.hero h1 .spark{color:var(--pink);font-size:.5em;vertical-align:.55em}
+.hero .sub{max-width:460px;margin:18px auto 0;font-size:clamp(1rem,2.2vw,1.12rem);color:#3d3b41}
+.hero .sub b{color:var(--ink)}
+.hero-media{min-width:0}
+.tour-cap{margin-top:14px;font-size:.92rem;color:#6a6660;text-align:center}
+.tour-cap b{color:var(--pink-deep)}
+
+/* CTA zone , badge + button + the $0 punchline, arrows floating above */
+.cta-zone{position:relative;margin:32px auto 0;display:flex;align-items:center;justify-content:center}
+.cta-center{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px}
+.start-here{
+  font-family:'Silkscreen';font-size:.78rem;color:var(--pink-deep);letter-spacing:.14em;text-transform:uppercase;
+  animation:bob 1.3s ease-in-out infinite;
+}
+.start-here .tri{display:inline-block}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.cta-micro{font-size:.86rem;color:#6a6660;letter-spacing:.02em}
+.cta-micro b{color:var(--ink)}
+/* the $0 selling point , labeled, big, marker-highlighted */
+.zero-block{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:6px}
+.zero-label{
+  font-family:'Silkscreen';font-size:.64rem;letter-spacing:.22em;
+  color:#6a6660;text-transform:uppercase;
+}
+.zero-big{
+  font-family:'Archivo Black','Arial Black',sans-serif;
+  font-size:clamp(2.8rem,7vw,4.1rem);line-height:1;color:var(--ink);
+  background:linear-gradient(transparent 58%,var(--yellow) 58%);
+  padding:0 .14em;letter-spacing:-.01em;
+}
+.zero-sub{
+  font-family:'Silkscreen';font-size:.66rem;letter-spacing:.13em;
+  color:var(--pink-deep);text-transform:uppercase;text-align:center;line-height:1.7;
+}
+/* dashed arrows hover in the open space above the button, pointing down at it */
+.arrow-l,.arrow-r{position:absolute;top:-40px;width:78px;height:auto;color:var(--ink)}
+.arrow-l{left:-34px}
+.arrow-r{right:-34px;transform:scaleX(-1)}
+.arrow-l path,.arrow-r path{stroke-dasharray:7 7;animation:nudge 1.15s ease-in-out infinite alternate}
+.arrow-r path{animation-delay:.55s}
+@keyframes nudge{from{transform:translateY(-5px)}to{transform:translateY(4px)}}
+@media (max-width:900px){.arrow-l,.arrow-r{display:none}}
+
+/* ---------- video player (lives in the hero, right column) ---------- */
+.h2{font-size:clamp(1.7rem,4.6vw,2.7rem)}
+.player{
+  position:relative;max-width:640px;margin:0 auto;aspect-ratio:16/9;
+  border:3px solid var(--ink);border-radius:20px;overflow:hidden;background:#000;
+  box-shadow:8px 8px 0 var(--ink);
+}
+.player video{width:100%;height:100%;object-fit:cover}
+.playbtn{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:84px;height:84px;border-radius:50%;background:var(--pink);border:3px solid var(--ink);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:5px 5px 0 var(--ink);transition:transform .18s ease,background .18s ease;
+}
+.playbtn:hover{transform:translate(-50%,-50%) scale(1.08);background:#ff4f8f}
+.playbtn::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:3px solid var(--pink);animation:ping 2.2s ease-out infinite}
+.playbtn svg{width:30px;height:30px;margin-left:6px}
+.playbtn.hide{display:none}
+.vbadge{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  background:rgba(22,21,25,.85);color:#fff;border-radius:999px;padding:.5em 1.1em;
+  font-family:'Silkscreen';font-size:.68rem;letter-spacing:.1em;white-space:nowrap;
+}
+.vbadge.hide{display:none}
+
+/* ---------- inside ---------- */
+.inside{padding:58px 0;background:var(--cream2);border-top:2px dashed rgba(22,21,25,.25);border-bottom:2px dashed rgba(22,21,25,.25)}
+.inside .h2{text-align:center}
+.inside-sub{text-align:center;color:#3d3b41;margin:12px auto 34px;max-width:540px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:920px;margin:0 auto}
+@media (max-width:720px){.cards{grid-template-columns:1fr}}
+.card{
+  background:var(--card);border:3px solid var(--ink);border-radius:18px;padding:24px;
+  box-shadow:6px 6px 0 var(--ink);text-align:left;transition:transform .15s ease;
+}
+.card:hover{transform:translate(-2px,-2px)}
+.card .ico{
+  width:46px;height:46px;border-radius:12px;background:var(--yellow);border:2.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:14px;
+}
+.card h3{font-size:1.02rem;letter-spacing:.02em;margin-bottom:8px}
+.card p{font-size:.97rem;color:#3d3b41}
+.card p b{color:var(--ink)}
+
+/* ---------- steps (dark band) ---------- */
+.steps{background:var(--ink);color:var(--cream);padding:64px 0}
+.steps .h2{color:var(--yellow);text-align:center}
+.steps-sub{text-align:center;color:var(--lav);margin:12px auto 40px;font-family:'Silkscreen';font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+.timeline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;max-width:960px;margin:0 auto}
+@media (max-width:760px){.timeline{grid-template-columns:1fr;gap:14px}}
+.step{border:2.5px dashed rgba(205,197,242,.5);border-radius:18px;padding:26px 22px;position:relative}
+.step .day{font-family:'Silkscreen';color:var(--yellow);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase}
+.step .big{font-family:'Archivo Black';font-size:clamp(1.6rem,4.2vw,2.2rem);text-transform:uppercase;margin:10px 0 8px;line-height:1.05}
+.step .big .zero{color:var(--pink)}
+.step p{font-size:.96rem;color:#d8d4cf}
+.step p b{color:var(--cream)}
+.persp{
+  max-width:640px;margin:44px auto 0;background:var(--yellow);color:var(--ink);
+  border:3px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--pink);
+  padding:22px 26px;text-align:center;font-size:1.02rem;
+}
+.persp b{font-family:'Archivo Black';text-transform:uppercase}
+/* ---------- faq ---------- */
+.faq{padding:58px 0}
+.faq .h2{text-align:center}
+.faq-list{max-width:760px;margin:30px auto 0;display:grid;gap:14px}
+.faq-list details{
+  background:var(--card);border:3px solid var(--ink);border-radius:14px;
+  box-shadow:5px 5px 0 var(--ink);overflow:hidden;
+}
+.faq-list summary{
+  list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;
+  padding:18px 22px;font-weight:900;font-size:1rem;
+}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary .pm{
+  flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:var(--yellow);border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-weight:900;transition:transform .2s ease;
+}
+.faq-list details[open] summary .pm{transform:rotate(45deg);background:var(--pink);color:#fff}
+.faq-list .ans{padding:0 22px 20px;color:#3d3b41;font-size:.97rem}
+
+/* ---------- final ---------- */
+.final{padding:66px 0 78px;text-align:center;background:var(--cream2);border-top:2px dashed rgba(22,21,25,.25)}
+.final .bowl{width:92px;margin:0 auto 8px}
+.final h2{font-size:clamp(2rem,6.4vw,3.6rem);max-width:16ch;margin:0 auto}
+.final .fp{max-width:560px;margin:20px auto 0;color:#3d3b41}
+.final .fp b{color:var(--ink)}
+.final .cta-zone{margin-top:38px}
+.final .cta-micro.pixel{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#6a6660;margin-top:14px}
+.final .cta-micro.pixel b{color:var(--pink-deep)}
+
+/* ---------- footer ---------- */
+footer{border-top:2px dashed rgba(22,21,25,.25);padding:44px 0 120px;text-align:center;font-size:.88rem;color:#6a6660}
+footer .fbrand{font-family:'Archivo Black';color:var(--ink);letter-spacing:.06em;text-transform:uppercase;margin:6px 0 8px}
+footer .tag{margin-bottom:14px}
+footer a{color:var(--pink-deep)}
+footer .legal{max-width:640px;margin:16px auto 0;font-size:.8rem;color:#8a857e;line-height:1.6}
+
+/* ---------- mobile sticky bar ---------- */
+.mbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--ink);color:var(--cream);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+  transform:translateY(110%);transition:transform .3s ease;
+}
+.mbar.show{transform:translateY(0)}
+.mbar .mtxt{line-height:1.25}
+.mbar .mtxt .t1{font-family:'Silkscreen';color:var(--yellow);font-size:.72rem;letter-spacing:.08em}
+.mbar .mtxt .t2{font-size:.72rem;color:var(--lav)}
+.mbar .btn{box-shadow:3px 3px 0 var(--pink);font-size:.85rem;padding:.62em 1.15em}
+@media (min-width:861px){.mbar{display:none}}
+
+/* ---------- reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(20px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main-cta">Skip to the free trial button</a>
+
+<!-- ================= HEADER ================= -->
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Noodlecafé Sessions , back to top">
+      <svg class="bowl" viewBox="0 0 64 52" aria-hidden="true">
+        <g shape-rendering="crispEdges">
+          <rect x="14" y="2" width="4" height="4" fill="#8a5a2b"/><rect x="22" y="2" width="8" height="4" fill="#a06a35"/><rect x="34" y="2" width="6" height="4" fill="#8a5a2b"/><rect x="44" y="2" width="6" height="4" fill="#a06a35"/>
+          <rect x="10" y="6" width="8" height="4" fill="#a06a35"/><rect x="18" y="6" width="20" height="4" fill="#8a5a2b"/><rect x="38" y="6" width="12" height="4" fill="#a06a35"/><rect x="50" y="6" width="4" height="4" fill="#8a5a2b"/>
+          <rect x="8" y="10" width="48" height="6" fill="#F6E75F"/><rect x="12" y="10" width="6" height="6" fill="#7ecb6f"/><rect x="30" y="10" width="6" height="6" fill="#F13C7D"/><rect x="44" y="10" width="6" height="6" fill="#7ecb6f"/>
+          <rect x="4" y="16" width="56" height="14" fill="#F13C7D"/>
+          <rect x="2" y="30" width="60" height="12" fill="#F13C7D"/>
+          <rect x="8" y="42" width="10" height="4" fill="#C9335C"/><rect x="24" y="42" width="16" height="4" fill="#C9335C"/><rect x="46" y="42" width="10" height="4" fill="#C9335C"/>
+          <rect x="14" y="46" width="36" height="4" fill="#C9335C"/>
+        </g>
+      </svg>
+      <span class="btxt">Noodlecafé<em>Sessions ♪</em></span>
+    </a>
+    <a class="btn btn-sm js-cta" data-loc="header" href="https://whop.com/checkout/plan_hrnkCXO1bMwRs">START FREE
+      <svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO (copy + CTA left, tour video right) ================= -->
+<section class="hero">
+  <div class="wrap wrap-wide">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="pill">🍜 $0 today · everything unlocked</span>
+        <h1>Make a full song.<br>Finally.<span class="spark">✦</span></h1>
+        <p class="sub">The tools, the lessons, and a fam that take you from a half-finished idea to a song you can actually share. <b>Your first week: $0.00.</b></p>
+
+        <div class="cta-zone">
+          <div class="cta-center">
+            <div class="start-here" aria-hidden="true">▼ START HERE , IT'S FREE</div>
+            <a id="main-cta" class="btn btn-mega js-cta" data-loc="hero" href="https://whop.com/checkout/plan_hrnkCXO1bMwRs">MAKE MY FIRST SONG
+              <svg class="arr" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="zero-block">
+              <span class="zero-label">Total due today</span>
+              <span class="zero-big">$0.00</span>
+              <span class="zero-sub">then $9.99/mo · cancel anytime</span>
+            </div>
+            <!-- dashed arrows hover in the open space above the button, pointing down at it -->
+            <svg class="arrow-l" viewBox="0 0 90 74" fill="none" aria-hidden="true">
+              <path d="M10 6 C 34 10, 60 26, 71 50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+              <path d="M57 44 L72 62 L77 41" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <svg class="arrow-r" viewBox="0 0 90 74" fill="none" aria-hidden="true">
+              <path d="M10 6 C 34 10, 60 26, 71 50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+              <path d="M57 44 L72 62 L77 41" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="player">
+          <video id="promo" preload="none" playsinline poster="assets/promo-poster.jpg">
+            <source src="assets/promo.mp4" type="video/mp4">
+            Your browser doesn't support embedded video, but you can watch the tour inside the membership , free for 7 days.
+          </video>
+          <button class="playbtn" id="playbtn" aria-label="Play the 2 minute tour video">
+            <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 3.8v16.4c0 1 1.1 1.6 2 1.1l13-8.2c.8-.5.8-1.7 0-2.2L8 2.7c-.9-.5-2 .1-2 1.1z"/></svg>
+          </button>
+          <div class="vbadge pixel" id="vbadge">▶ WATCH THE TOUR · 2:16</div>
+        </div>
+        <p class="tour-cap">The real tools running &amp; the real fam talking , <b>the actual product</b>, nothing staged.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT YOU GET ================= -->
+<section class="inside">
+  <div class="wrap">
+    <h2 class="h2 reveal">Everything you need<br>to finish a song.</h2>
+    <p class="inside-sub reveal">Everything below is included the second you join , nothing held back.</p>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="ico" aria-hidden="true">🧰</div>
+        <h3>12 browser tools</h3>
+        <p>Chord Finder, Scale Explorer, Circle of Fifths, Interval Trainer, metronome, fretboard and more. <b>Everything runs in your browser</b> , no installs, no sign-ups.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" aria-hidden="true">🎸</div>
+        <h3>A full course path</h3>
+        <p>Fundamentals → guitar guides → melodies → writing better songs → harmony. <b>Starts at zero</b> , "what is a key?" is a valid question here.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" aria-hidden="true">🗣️</div>
+        <h3>Real feedback on your music</h3>
+        <p>Post your work-in-progress in <b>The Café</b> and get honest answers from people who are actually making music , not bots, not gatekeepers.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" aria-hidden="true">✂️</div>
+        <h3>NoodleSplit + extras</h3>
+        <p>Pull any song apart into stems, study with flashcards, focus with the lofi radio, and set weekly noodle goals with the fam.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= YOUR FIRST WEEK IN THE CAFÉ ================= -->
+<section class="steps">
+  <div class="wrap">
+    <h2 class="h2 reveal">Your first week in the café</h2>
+    <p class="steps-sub reveal">No tricks , here's exactly what happens.</p>
+    <div class="timeline">
+      <div class="step reveal">
+        <div class="day">TODAY</div>
+        <div class="big"><span class="zero">$0.00</span> JOIN</div>
+        <p>Join through Whop. They hold your card so everything activates in one click , <b>you're not charged anything today.</b></p>
+      </div>
+      <div class="step reveal">
+        <div class="day">ALL WEEK LONG</div>
+        <div class="big">EVERYTHING UNLOCKS</div>
+        <p>All 12 tools, every course, The Café, NoodleSplit , the whole place is yours. <b>Make music with us.</b></p>
+      </div>
+      <div class="step reveal">
+        <div class="day">AFTER THAT</div>
+        <div class="big">YOUR CALL</div>
+        <p>Love it? Stay for <b>$9.99/mo</b>. Not yet? Cancel in your Whop account and owe nothing. Two clicks, no guilt trip.</p>
+      </div>
+    </div>
+    <div class="persp reveal">
+      <b>A little perspective:</b> a half-hour with a private teacher runs <b>$27.50–$50</b>. A whole month here is <b>$9.99</b> , and your first week is free.
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq">
+  <div class="wrap">
+    <h2 class="h2 reveal">Quick answers</h2>
+    <div class="faq-list">
+      <details class="reveal">
+        <summary>Why do I need a card for a free trial?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans">Whop holds the card so your membership activates instantly and, if you stay, continues without a gap on day 8. Nothing is charged today , cancel before day 8 and you pay $0.00, guaranteed by Whop's checkout.</div>
+      </details>
+      <details class="reveal">
+        <summary>What exactly happens on day 8?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans">Your membership becomes $9.99/month, billed by Whop. If you cancel any time before that, you're never charged , and you keep access until your free week ends.</div>
+      </details>
+      <details class="reveal">
+        <summary>How do I cancel?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans">Open your Whop account → memberships → cancel. Two clicks, done, no email chain, no guilt trip. Payments, card storage and account data are all handled by Whop.</div>
+      </details>
+      <details class="reveal">
+        <summary>I'm a total beginner. Is this too advanced?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans">The course path starts at step zero , the first modules assume you know nothing. The tools explain theory as you use them, and The Café is the place to ask the "dumb" questions (nobody here thinks they're dumb).</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final">
+  <div class="wrap">
+    <svg class="bowl reveal" viewBox="0 0 64 52" aria-hidden="true">
+      <g shape-rendering="crispEdges">
+        <rect x="14" y="2" width="4" height="4" fill="#8a5a2b"/><rect x="22" y="2" width="8" height="4" fill="#a06a35"/><rect x="34" y="2" width="6" height="4" fill="#8a5a2b"/><rect x="44" y="2" width="6" height="4" fill="#a06a35"/>
+        <rect x="10" y="6" width="8" height="4" fill="#a06a35"/><rect x="18" y="6" width="20" height="4" fill="#8a5a2b"/><rect x="38" y="6" width="12" height="4" fill="#a06a35"/><rect x="50" y="6" width="4" height="4" fill="#8a5a2b"/>
+        <rect x="8" y="10" width="48" height="6" fill="#F6E75F"/><rect x="12" y="10" width="6" height="6" fill="#7ecb6f"/><rect x="30" y="10" width="6" height="6" fill="#F13C7D"/><rect x="44" y="10" width="6" height="6" fill="#7ecb6f"/>
+        <rect x="4" y="16" width="56" height="14" fill="#F13C7D"/>
+        <rect x="2" y="30" width="60" height="12" fill="#F13C7D"/>
+        <rect x="8" y="42" width="10" height="4" fill="#C9335C"/><rect x="24" y="42" width="16" height="4" fill="#C9335C"/><rect x="46" y="42" width="10" height="4" fill="#C9335C"/>
+        <rect x="14" y="46" width="36" height="4" fill="#C9335C"/>
+      </g>
+    </svg>
+    <h2 class="reveal">Pull up a stool.<br>First week's on the house.</h2>
+    <p class="fp reveal">Everything unlocked, <b>$0.00 today</b>. If it's not your thing, cancel and you owe nothing. If it is , you've got a fam now.</p>
+    <div class="cta-zone">
+      <div class="cta-center">
+        <div class="start-here" aria-hidden="true">▼ YOUR SEAT IS FREE</div>
+        <a class="btn btn-mega js-cta" data-loc="final" href="https://whop.com/checkout/plan_hrnkCXO1bMwRs">JOIN THE FAM , IT'S FREE
+          <svg class="arr" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="zero-block">
+          <span class="zero-label">Total due today</span>
+          <span class="zero-big">$0.00</span>
+          <span class="zero-sub">then $9.99/mo · cancel anytime</span>
+        </div>
+        <svg class="arrow-l" viewBox="0 0 90 74" fill="none" aria-hidden="true">
+          <path d="M10 6 C 34 10, 60 26, 71 50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="M57 44 L72 62 L77 41" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <svg class="arrow-r" viewBox="0 0 90 74" fill="none" aria-hidden="true">
+          <path d="M10 6 C 34 10, 60 26, 71 50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="M57 44 L72 62 L77 41" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="fbrand">Noodlecafé Sessions</div>
+    <div class="tag">No bullshit. No gatekeeping. Just music. 🍜</div>
+    <div>Peek at the <a href="https://whop.com/noodlecafe-sessions" target="_blank" rel="noopener">Whop page here</a>. Questions? Contact support from that page and a human answers.</div>
+    <p class="legal">Psst , the trial clock only starts when you join. After the 7-day free trial, membership renews at $9.99/month until canceled. Cancel anytime from your Whop account. Payments, card storage, and account data are handled by Whop under its own terms and privacy policy.</p>
+  </div>
+</footer>
+
+<!-- ================= MOBILE STICKY CTA ================= -->
+<div class="mbar" id="mbar" role="complementary" aria-label="Start your free trial">
+  <div class="mtxt">
+    <div class="t1">$0.00 TODAY</div>
+    <div class="t2">then $9.99/mo · cancel anytime</div>
+  </div>
+  <a class="btn js-cta" data-loc="mobilebar" href="https://whop.com/checkout/plan_hrnkCXO1bMwRs">START FREE
+    <svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+<script>
+(function(){
+  "use strict";
+  /* ============ funnel logger (zero dependencies) ============ */
+  var KEY = "nc-funnel";
+  function log(event, detail){
+    try{
+      var entry = {event:event, t:new Date().toISOString(), detail:detail||{}};
+      var arr = [];
+      try{ arr = JSON.parse(localStorage.getItem(KEY)) || []; }catch(e){ arr = []; }
+      arr.push(entry);
+      if(arr.length > 40) arr = arr.slice(-40);
+      localStorage.setItem(KEY, JSON.stringify(arr));
+      window.ncFunnel = arr;
+      (window.dataLayer = window.dataLayer || []).push(Object.assign({event:"nc_"+event}, entry.detail));
+    }catch(e){}
+  }
+  console.log("%c🍜 noodlecafé sessions , funnel events land in localStorage[\"nc-funnel\"] and window.ncFunnel","font-weight:bold");
+
+  /* ============ UTM / query passthrough on every CTA ============ */
+  var q = window.location.search;
+  var ctas = document.querySelectorAll(".js-cta");
+  for(var i=0;i<ctas.length;i++){
+    var a = ctas[i];
+    if(q){
+      var base = a.getAttribute("href").split("?")[0];
+      a.setAttribute("href", base + q);
+    }
+    a.addEventListener("click", function(){
+      log("cta_click", {loc:this.getAttribute("data-loc")||"unknown"});
+    });
+  }
+  log("page_view", {path:location.pathname, ref:document.referrer || "direct"});
+
+  /* ============ video ============ */
+  var video  = document.getElementById("promo");
+  var playbtn = document.getElementById("playbtn");
+  var vbadge = document.getElementById("vbadge");
+  var started = false;
+  function startVideo(){
+    if(!video) return;
+    video.controls = true; /* always give the viewer a control bar (pause/seek/fullscreen) */
+    var p = video.play();
+    if(p && p.catch){
+      p.catch(function(){
+        /* defensive: retry if the first play attempt is blocked */
+        try{ video.play(); }catch(e){}
+      });
+    }
+    if(!started){ started = true; log("video_play", {src:"promo.mp4"}); }
+    playbtn.classList.add("hide");
+    vbadge.classList.add("hide");
+  }
+  if(playbtn){
+    playbtn.addEventListener("click", startVideo);
+  }
+  if(video){
+    /* NOTE: no custom click-to-toggle here , with controls enabled the browser
+       natively pauses/resumes on click; a custom handler double-fires and
+       instantly un-pauses (the "can't pause" bug). */
+    video.addEventListener("ended", function(){
+      log("video_complete", {});
+      playbtn.classList.remove("hide");
+      vbadge.classList.remove("hide");
+      playbtn.setAttribute("aria-label","Replay the tour video");
+    });
+  }
+
+  /* ============ faq logging ============ */
+  var ds = document.querySelectorAll(".faq-list details");
+  for(var j=0;j<ds.length;j++){
+    ds[j].addEventListener("toggle", function(){
+      if(this.open) log("faq_open", {q:this.querySelector("summary").textContent.slice(0,60)});
+    });
+  }
+
+  /* ============ reveal on scroll ============ */
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var revs = document.querySelectorAll(".reveal");
+  if(reduced || !("IntersectionObserver" in window)){
+    for(var k=0;k<revs.length;k++) revs[k].classList.add("in");
+  }else{
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    },{threshold:.12, rootMargin:"0px 0px -40px 0px"});
+    revs.forEach(function(r){ io.observe(r); });
+  }
+
+  /* ============ mobile sticky bar ============ */
+  var mbar = document.getElementById("mbar");
+  var ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY || 0;
+      if(y > 620) mbar.classList.add("show"); else mbar.classList.remove("show");
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
