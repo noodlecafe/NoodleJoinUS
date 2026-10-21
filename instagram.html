@@ -3,166 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FAF3EA">
-<title>the 7 day noodle challenge ♪ | noodlecafé sesssions</title>
-<meta name="description" content="7 days. one track. zero excuses. free daily music missions, feedback from real musicians, and a finished track by day 7.">
+<meta name="theme-color" content="#16151A">
+<title>the 7 day noodle challenge ♪ | noodlecafe sesssions</title>
+<meta name="description" content="give us 7 days, leave with a track. one email on this page locks your seat.">
 <meta property="og:title" content="the 7 day noodle challenge ♪">
-<meta property="og:description" content="you commented the word. you got the link. one tiny step left. 7 days, one finished track, zero gatekeeping.">
+<meta property="og:description" content="you said the word. give us 7 days, leave with a track. one email on this page locks your seat.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Whop embedded checkout loader -->
+<script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
+
 <style>
   :root{
-    --cream:#FAF3EA; --yellow:#F6E75F; --pink:#F13C7D; --pink-deep:#C9335C;
-    --pink-soft:#FDECEF; --blue:#2E62F4; --lav:#CDC5F2; --ink:#161519;
+    /* new brand, sampled straight off the reel */
+    --bg:#16151A; --bg2:#1B1A20; --card:#232229; --tile:#34333B;
+    --cream:#F8F0E8; --mut:#8E8B94;
+    --yellow:#F4E45C; --pink:#F02C7C; --pink-deep:#C9335C;
+    --lav:#CDC5F2; --blue:#A9C3F7; --ink:#16151A;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
   body{
-    background:var(--cream);
-    background-image:radial-gradient(rgba(22,21,25,.07) 1px, transparent 1.3px);
-    background-size:22px 22px;
-    color:var(--ink); font-family:'Archivo',sans-serif;
+    background:var(--bg);
+    background-image:radial-gradient(120% 62% at 50% 6%, #24232A 0%, #1C1B21 46%, var(--bg) 100%);
+    background-attachment:fixed;
+    color:var(--cream); font-family:'Archivo',sans-serif;
     overflow-x:hidden; min-height:100vh;
   }
-  .wrap{max-width:680px;margin:0 auto;padding:0 1.1rem;position:relative;z-index:1}
+  /* film grain, sits under the content, only tints the backdrop */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:0 1.1rem;position:relative;z-index:1}
 
   /* ---------- floating decorations ---------- */
   .float{position:absolute;z-index:0;pointer-events:none}
-  .f1{top:9%;left:4%;animation:bob 5s ease-in-out infinite}
-  .f2{top:22%;right:5%;animation:tw 4s ease-in-out infinite}
-  .f3{top:52%;left:2%;animation:tw 6s ease-in-out infinite 1s}
-  .f4{top:70%;right:3%;animation:bob 7s ease-in-out infinite .5s}
-  .f5{bottom:6%;left:8%;animation:bob 6s ease-in-out infinite 2s}
-  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  @keyframes tw{0%,100%{transform:scale(1) rotate(0deg);opacity:1}50%{transform:scale(.55) rotate(25deg);opacity:.6}}
+  .f1{top:6%;left:4%;color:var(--yellow);animation:bob 5s ease-in-out infinite}
+  .f2{top:15%;right:5%;color:var(--pink);animation:tw 4s ease-in-out infinite}
+  .f3{bottom:16%;left:6%;color:var(--lav);animation:tw 6s ease-in-out infinite 1s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes tw{0%,100%{transform:scale(1) rotate(0deg);opacity:1}50%{transform:scale(.55) rotate(25deg);opacity:.55}}
 
   /* ---------- top bar ---------- */
-  header.top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:1rem 0 .2rem;position:relative;z-index:2}
-  .logo{font-family:'Silkscreen',monospace;font-size:.78rem;letter-spacing:.02em;display:flex;align-items:center;gap:.5rem;font-weight:700}
-  .logo svg{width:26px;height:auto;flex:none}
-  .chip{display:inline-flex;align-items:center;gap:.3rem;border:2px solid var(--ink);border-radius:999px;padding:.32rem .8rem;
-    background:var(--yellow);font-weight:700;font-size:.78rem;box-shadow:3px 3px 0 var(--ink);white-space:nowrap}
-  .chip.pink{background:var(--pink);color:#fff}
-  .chip.blue{background:var(--blue);color:#fff}
-  .chip.lav{background:var(--lav)}
+  header.top{display:flex;justify-content:center;padding:1rem 0 .2rem;position:relative;z-index:2}
+  .logo{font-family:'Silkscreen',monospace;font-size:.72rem;letter-spacing:.02em;display:flex;align-items:center;gap:.55rem;font-weight:700;color:var(--cream)}
+  .logo .badge{width:30px}
+
+  /* yellow circle badge = the avatar from the reel */
+  .badge{aspect-ratio:1;border-radius:50%;background:var(--yellow);
+    display:flex;align-items:center;justify-content:center;flex:none}
+  .badge svg{width:62%;height:auto;display:block}
 
   /* ---------- hero ---------- */
-  .hero{text-align:center;padding:2.6rem 0 2.2rem;position:relative}
-  .chip-magic{margin-bottom:1.3rem;animation:bob 4s ease-in-out infinite}
-  h1{font-family:'Archivo Black',sans-serif;text-transform:uppercase;line-height:.98;
-    font-size:clamp(2.5rem,11vw,4.6rem);letter-spacing:-.01em;margin-bottom:1.1rem}
+  .hero{text-align:center;padding:1.05rem 0 .4rem;position:relative}
+  h1{font-family:'Archivo',sans-serif;font-weight:900;font-stretch:125%;text-transform:uppercase;
+    line-height:1.04;font-size:clamp(1.85rem,9vw,3.4rem);letter-spacing:-.01em;margin:0 0 .95rem;color:var(--cream)}
   h1 .hl{color:var(--pink)}
-  .sub{font-size:clamp(1rem,3.8vw,1.15rem);line-height:1.55;font-weight:500;max-width:34rem;margin:0 auto 1.6rem}
-  .sub b{background:var(--yellow);padding:0 .25em;border-radius:4px;box-shadow:inset 0 -2px 0 var(--ink)}
+  .sub{font-size:clamp(.95rem,3.7vw,1.06rem);line-height:1.55;font-weight:500;color:var(--mut);max-width:30rem;margin:0 auto}
+  .sub b{color:var(--cream);font-weight:700}
 
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;text-decoration:none;
-    font-family:'Archivo Black',sans-serif;text-transform:uppercase;letter-spacing:.03em;
-    background:var(--pink);color:#fff;border:2.5px solid var(--ink);border-radius:14px;
-    box-shadow:5px 5px 0 var(--ink);padding:1.1rem 1.5rem;font-size:1.08rem;
-    transition:transform .12s ease, box-shadow .12s ease;cursor:pointer}
-  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
-  .btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
-  .btn .arr{transition:transform .2s ease;font-family:'Archivo',sans-serif;font-weight:700}
-  .btn:hover .arr{transform:translateX(5px)}
-  .btn.yolk{background:var(--yellow);color:var(--ink)}
-  .btn-big{width:100%;max-width:400px}
+  /* bowl badge + vinyl + arrow pointing at the form */
+  .bowl-row{display:flex;justify-content:center;align-items:flex-end;gap:.7rem;margin:1.15rem 0 .35rem}
+  .badge-wrap{position:relative;width:min(96px,24vw);cursor:pointer;user-select:none;-webkit-user-select:none}
+  .badge-wrap .badge{width:100%;position:relative;z-index:1;transition:transform .15s ease}
+  .badge-wrap.wig .badge{animation:wig .45s ease}
+  .badge-wrap svg.steam{position:absolute;z-index:2;top:-14%;left:50%;transform:translateX(-50%);width:70%;height:auto}
+  @keyframes wig{0%,100%{transform:rotate(0)}20%{transform:rotate(-7deg)}40%{transform:rotate(6deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(3deg)}}
+  /* vinyl peeking out from behind the badge */
+  .vinyl{position:absolute;z-index:0;top:34%;left:67%;width:100%;aspect-ratio:1;border-radius:50%;
+    background:repeating-radial-gradient(circle at 50% 50%, #1F1E25 0 2.5px, #29272F 2.5px 5px);
+    border:2px solid var(--tile);opacity:.75;animation:spin 14s linear infinite}
+  .vinyl::after{content:"";position:absolute;inset:36%;border-radius:50%;background:var(--pink);
+    background-image:radial-gradient(circle, var(--bg) 0 12%, transparent 13%)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .st{opacity:0;animation:steam 2.6s ease-in-out infinite}
+  .s2{animation-delay:.8s}.s3{animation-delay:1.6s}
+  @keyframes steam{0%{opacity:0;transform:translateY(4px)}30%{opacity:.6}100%{opacity:0;transform:translateY(-11px)}}
+  .arrow-down{width:32px;height:auto;margin-bottom:2px;animation:pointDown 1.4s ease-in-out infinite}
+  @keyframes pointDown{0%,100%{transform:translateY(0) rotate(6deg)}50%{transform:translateY(9px) rotate(6deg)}}
+
+  /* ---------- seat: embedded checkout, reel-style frame ---------- */
+  #seat{scroll-margin-top:12px;padding:.7rem 0 2rem}
+  .seat-zone{position:relative}
+  .card-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-3deg);z-index:3;
+    display:inline-flex;align-items:center;gap:.3rem;border-radius:999px;
+    padding:.34rem .74rem;background:var(--pink);color:#fff;font-family:'Silkscreen',monospace;
+    font-size:.58rem;font-weight:700;white-space:nowrap}
+  .whop-card{background:var(--card);border:2px solid var(--yellow);border-radius:22px;
+    padding:.8rem;position:relative}
+  .whop-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:.8rem;font-family:'Silkscreen',monospace;font-size:.64rem;color:var(--mut);z-index:0;text-align:center;padding:1rem}
+  .whop-loading .badge{width:54px;animation:bob 3s ease-in-out infinite}
+  .whop-mount{position:relative;z-index:1;padding:.15rem;overflow:hidden}
+  /* whop reports the iframe taller than its content (fixed 480px, ~140px dead
+     white space below the powered-by row). crop that tail off:
+     negative bottom margin + hidden overflow trims it at every width. */
+  .whop-mount iframe{width:100%!important;display:block;border:0;border-radius:14px;background:transparent;margin-bottom:-120px}
+  .embed-fallback{display:none;margin-top:1rem;text-align:center}
+  .embed-fallback.show{display:block;animation:nowPulse 2.4s ease-in-out infinite}
+  @keyframes nowPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+  .embed-fallback .fbnote{font-size:.85rem;font-weight:600;color:var(--mut);margin-bottom:.7rem}
+
+  .side-arrow{position:absolute;z-index:2;width:44px;height:auto;display:none;animation:sideNudge 1.6s ease-in-out infinite}
+  .sa-left{left:-54px;top:32%;transform:rotate(-34deg)}
+  .sa-right{right:-54px;top:32%;transform:rotate(34deg) scaleX(-1);animation-delay:.4s}
+  @keyframes sideNudge{0%,100%{translate:0 0}50%{translate:0 8px}}
+  @media(min-width:680px){
+    .side-arrow{display:block}
+  }
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;text-decoration:none;
+    font-family:'Archivo',sans-serif;font-weight:900;font-stretch:115%;text-transform:uppercase;letter-spacing:.04em;
+    background:var(--pink);color:#fff;border:0;border-radius:16px;
+    padding:1.05rem 1.5rem;font-size:.98rem;
+    transition:transform .12s ease, filter .12s ease;cursor:pointer}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+  .btn:active{transform:translateY(1px) scale(.98)}
   .btn.pulse{animation:pulse .7s ease-in-out infinite}
   @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 
-  .micro{margin-top:.85rem;font-size:.82rem;font-weight:600;opacity:.75;letter-spacing:.01em}
-  .hint{margin-top:1.4rem;font-family:'Silkscreen',monospace;font-size:.62rem;opacity:.55}
-
-  /* ---------- bowl ---------- */
-  .bowl-wrap{margin:2.2rem auto 0;width:min(220px,52vw);cursor:pointer;user-select:none;-webkit-user-select:none}
-  .bowl-wrap svg{width:100%;height:auto;display:block;animation:bob 5.5s ease-in-out infinite}
-  .bowl-wrap.wig svg{animation:wig .45s ease}
-  @keyframes wig{0%,100%{transform:rotate(0)}20%{transform:rotate(-7deg)}40%{transform:rotate(6deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(3deg)}}
-  .st{opacity:0;animation:steam 2.6s ease-in-out infinite}
-  .s2{animation-delay:.8s}.s3{animation-delay:1.6s}
-  @keyframes steam{0%{opacity:0;transform:translateY(5px)}30%{opacity:.55}100%{opacity:0;transform:translateY(-13px)}}
-
-  /* ---------- sections & cards ---------- */
-  section{padding:2.2rem 0;position:relative}
-  h2{font-family:'Archivo Black',sans-serif;text-transform:uppercase;font-size:clamp(1.5rem,6vw,2.1rem);line-height:1.05;margin-bottom:.7rem}
-  .sec-head{text-align:center;max-width:32rem;margin:0 auto 1.6rem}
-  .sec-head p{font-weight:500;opacity:.8;line-height:1.5}
-
-  .card{background:var(--yellow);border:2.5px solid var(--ink);border-radius:18px;
-    box-shadow:5px 5px 0 var(--ink);padding:clamp(1.3rem,4.5vw,2rem)}
-  .card h2 .spark{color:var(--pink)}
-
-  .rows{display:grid;gap:.85rem;margin:1.2rem 0}
-  .row{display:flex;gap:.85rem;align-items:flex-start;background:#FFFDF7;border:2px solid var(--ink);
-    border-radius:12px;padding:.85rem .95rem;box-shadow:3px 3px 0 var(--ink)}
-  .row .ico{flex:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);
-    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;background:var(--pink-soft)}
-  .row:nth-child(2) .ico{background:var(--lav)}
-  .row:nth-child(3) .ico{background:var(--yellow)}
-  .row:nth-child(4) .ico{background:#fff}
-  .row p{font-size:.95rem;line-height:1.5;font-weight:500}
-  .row p b{font-weight:800}
-  .fine{font-family:'Silkscreen',monospace;font-size:.66rem;opacity:.7;text-align:center;margin-top:.4rem}
-
-  /* ---------- 7 days ---------- */
-  .days{list-style:none;display:grid;gap:.85rem}
-  .day{display:flex;gap:.9rem;align-items:flex-start;background:#FFFDF7;border:2.5px solid var(--ink);
-    border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:1rem 1.05rem}
-  .dchip{flex:none;font-family:'Silkscreen',monospace;font-size:.6rem;font-weight:700;text-transform:uppercase;
-    border:2px solid var(--ink);border-radius:8px;padding:.34rem .5rem;margin-top:.1rem;white-space:nowrap;
-    background:var(--pink);color:#fff;box-shadow:2px 2px 0 var(--ink)}
-  .day:nth-child(2n) .dchip{background:var(--blue)}
-  .day:nth-child(3n) .dchip{background:var(--lav);color:var(--ink)}
-  .day:nth-child(7) .dchip{background:var(--yellow);color:var(--ink)}
-  .day h3{font-family:'Archivo Black',sans-serif;text-transform:uppercase;font-size:.95rem;margin-bottom:.25rem}
-  .day p{font-size:.9rem;line-height:1.5;opacity:.85;font-weight:500}
-
-  /* ---------- gets grid ---------- */
-  .get-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem}
-  .get{border:2.5px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);
-    padding:1rem .95rem;background:var(--pink-soft)}
-  .get:nth-child(2){background:var(--lav)}
-  .get:nth-child(3){background:var(--yellow)}
-  .get:nth-child(5){background:var(--yellow)}
-  .get .gi{font-size:1.35rem;display:block;margin-bottom:.4rem}
-  .get h3{font-family:'Archivo Black',sans-serif;text-transform:uppercase;font-size:.85rem;margin-bottom:.3rem;line-height:1.15}
-  .get p{font-size:.82rem;line-height:1.45;opacity:.85;font-weight:500}
-
-  /* ---------- final ---------- */
-  .final-card{background:var(--pink);color:#fff;text-align:center;border-color:var(--ink)}
-  .final-card h2{color:#fff}
-  .final-card p{color:rgba(255,255,255,.95);font-weight:500;line-height:1.55;max-width:26rem;margin:0 auto 1.4rem}
-  .final-card .micro{color:rgba(255,255,255,.85);opacity:1}
-
   /* ---------- footer ---------- */
-  footer{text-align:center;padding:2.4rem 1rem 7.5rem;position:relative;z-index:1}
-  footer .flogo{font-family:'Silkscreen',monospace;font-size:.72rem;font-weight:700;margin-bottom:.55rem;display:flex;justify-content:center;align-items:center;gap:.45rem}
-  footer .flogo svg{width:22px;height:auto}
-  footer .slogan{font-weight:700;font-size:.9rem;margin-bottom:.4rem}
-  footer .cp{font-size:.75rem;opacity:.6}
+  footer{text-align:center;padding:1.7rem 1rem calc(6.5rem + env(safe-area-inset-bottom));position:relative;z-index:1}
+  footer .slogan{font-weight:700;font-size:.85rem;color:var(--cream);margin-bottom:.45rem}
+  footer .cp{font-family:'Silkscreen',monospace;font-size:.58rem;color:var(--mut);letter-spacing:.08em}
 
   /* ---------- sticky mobile cta ---------- */
-  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--cream);
-    border-top:2.5px solid var(--ink);padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg2);
+    border-top:1.5px solid var(--tile);padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
     transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.9,.3,1.2)}
   .sticky-cta.show{transform:translateY(0)}
-  .sticky-cta .btn{width:100%;font-size:1rem;padding:.95rem 1rem;box-shadow:4px 4px 0 var(--ink)}
+  .sticky-cta .btn{width:100%;font-size:.96rem;padding:.95rem 1rem}
 
   /* ---------- toast & confetti ---------- */
   .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
-    background:var(--ink);color:#fff;font-weight:700;font-size:.9rem;padding:.8rem 1.2rem;border-radius:12px;
-    border:2px solid #fff;box-shadow:4px 4px 0 rgba(22,21,25,.35);opacity:0;pointer-events:none;
+    background:var(--cream);color:var(--ink);font-weight:700;font-size:.9rem;padding:.8rem 1.2rem;border-radius:12px;
+    border:2px solid var(--yellow);opacity:0;pointer-events:none;
     transition:opacity .25s ease, transform .25s ease;z-index:80;max-width:88vw;text-align:center}
   .toast.show{opacity:1;transform:translate(-50%,0)}
   #confetti{position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden}
   .cf{position:absolute;top:-16px;animation:fall linear forwards}
-  @keyframes fall{to{transform:translateY(108vh) rotate(var(--r)) ;opacity:.9}}
+  @keyframes fall{to{transform:translateY(108vh) rotate(var(--r));opacity:.9}}
 
-  @media(min-width:720px){
-    .get-grid{grid-template-columns:repeat(3,1fr)}
-    .get:nth-child(5){grid-column:span 1}
-  }
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
   }
@@ -177,9 +162,9 @@
     <rect x="10" y="0" width="1" height="1" fill="var(--ink)"/><rect x="11" y="1" width="1" height="1" fill="var(--ink)"/>
     <rect x="12" y="2" width="1" height="1" fill="var(--ink)"/><rect x="13" y="0" width="1" height="1" fill="var(--ink)"/>
     <rect x="12" y="1" width="1" height="1" fill="var(--ink)"/><rect x="11" y="2" width="1" height="1" fill="var(--ink)"/>
-    <!-- noodles -->
-    <rect x="5" y="4" width="1" height="1" fill="var(--yellow)"/><rect x="8" y="4" width="1" height="1" fill="var(--yellow)"/>
-    <rect x="4" y="5" width="8" height="1" fill="var(--yellow)"/>
+    <!-- noodles (pink, like the reel avatar) -->
+    <rect x="5" y="4" width="1" height="1" fill="var(--pink)"/><rect x="8" y="4" width="1" height="1" fill="var(--pink)"/>
+    <rect x="4" y="5" width="8" height="1" fill="var(--pink)"/>
     <rect x="4" y="5" width="8" height="1" fill="none" stroke="var(--ink)" stroke-width=".15"/>
     <!-- rim -->
     <rect x="3" y="6" width="10" height="1" fill="var(--ink)"/>
@@ -196,107 +181,95 @@
     <rect x="6" y="11" width="4" height="1" fill="var(--ink)"/>
   </symbol>
   <symbol id="spark" viewBox="0 0 24 24">
-    <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" fill="var(--pink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" fill="currentColor"/>
+  </symbol>
+  <!-- hand-drawn arrow, yellow like the reel -->
+  <symbol id="arrowD" viewBox="0 0 40 52">
+    <path d="M21 3 C 15 14, 26 22, 20 33" fill="none" stroke="var(--yellow)" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M7 30 L20 46 L33 29 Z" fill="var(--yellow)"/>
   </symbol>
 </svg>
 
 <!-- floating decor -->
-<svg class="float f1" width="26" height="26" aria-hidden="true"><use href="#spark"/></svg>
-<svg class="float f2" width="18" height="18" aria-hidden="true"><use href="#spark" style="color:var(--blue)"/></svg>
-<svg class="float f3" width="22" height="22" aria-hidden="true"><use href="#spark"/></svg>
-<svg class="float f4" width="16" height="16" aria-hidden="true"><use href="#spark"/></svg>
-<svg class="float f5" width="24" height="24" aria-hidden="true"><use href="#spark"/></svg>
+<svg class="float f1" width="24" height="24" aria-hidden="true"><use href="#spark"/></svg>
+<svg class="float f2" width="16" height="16" aria-hidden="true"><use href="#spark"/></svg>
+<svg class="float f3" width="19" height="19" aria-hidden="true"><use href="#spark"/></svg>
 
 <div class="wrap">
 
   <header class="top">
-    <div class="logo"><svg viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>noodlecafe sesssions <span style="color:var(--pink)">♪</span></div>
-    <span class="chip">free ♪</span>
+    <div class="logo">
+      <span class="badge"><svg viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg></span>
+      noodlecafe sesssions <span style="color:var(--pink)">♪</span>
+    </div>
   </header>
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <span class="chip pink chip-magic">♪ you said the magic word</span>
-    <h1>7 days.<br><span class="hl">one track.</span><br>zero excuses.</h1>
-    <p class="sub">you commented, you got the link, and now the only thing between you and <b>your first finished track</b> is one free account. it takes about 60 seconds. we counted.</p>
-    <a class="btn btn-big js-join" href="https://whop.com/noodlehub/exp_MeftHjsX2FEVZ1/app/">join the challenge <span class="arr">→</span></a>
-    <p class="micro">free · ~60 seconds · one quick whop login · then you're in</p>
+    <h1>give us<br>7 days.<br>leave with<br><span class="hl">a track.</span></h1>
+    <p class="sub">no experience needed. zero gatekeeping. by day 7, <b>that song has your name on it.</b> promise. ♪</p>
 
-    <div class="bowl-wrap" id="bowl" role="button" aria-label="the bowl. yes, click it.">
-      <svg viewBox="0 0 16 14" shape-rendering="crispEdges">
-        <g fill="var(--pink)" style="opacity:.55">
-          <rect class="st s1" x="5" y="2" width="1" height="2"/><rect class="st s2" x="8" y="1" width="1" height="2"/><rect class="st s3" x="11" y="2" width="1" height="2"/>
-        </g>
-        <use href="#bowl"/>
-      </svg>
-    </div>
-    <p class="hint">(psst. the bowl is clickable. everything here is.)</p>
-  </section>
-
-  <!-- OBJECTION KILLER -->
-  <section>
-    <div class="card">
-      <h2>wait. another account? <span class="spark">✶</span></h2>
-      <p style="font-weight:500;line-height:1.55">yeah, we know. here's the honest deal: <b>whop is just the door.</b> it's where the challenge, the daily drops and the community live so they don't get lost in your DMs.</p>
-      <div class="rows">
-        <div class="row"><span class="ico">✓</span><p><b>it's free.</b> no card, no trial, no "accidentally billed later".</p></div>
-        <div class="row"><span class="ico">⚡</span><p><b>one tap sign in</b> with google or apple. no new password to invent and instantly forget.</p></div>
-        <div class="row"><span class="ico">🍜</span><p><b>everything in one place.</b> missions, feedback, the café. not scattered across 5 apps.</p></div>
-        <div class="row"><span class="ico">🚫</span><p><b>no spam.</b> emails about your challenge, that's it. unsubscribe whenever, no feelings hurt.</p></div>
+    <div class="bowl-row">
+      <div class="badge-wrap" id="bowl" role="button" aria-label="the bowl. yes, click it.">
+        <div class="vinyl" aria-hidden="true"></div>
+        <div class="badge">
+          <svg viewBox="0 0 16 14" shape-rendering="crispEdges" aria-hidden="true">
+            <g fill="var(--pink)">
+              <rect class="st s1" x="5" y="2" width="1" height="2"/><rect class="st s2" x="8" y="1" width="1" height="2"/><rect class="st s3" x="11" y="2" width="1" height="2"/>
+            </g>
+            <use href="#bowl"/>
+          </svg>
+        </div>
       </div>
-      <p class="fine">60 seconds. that's the entire tax.</p>
+      <svg class="arrow-down" viewBox="0 0 40 52" aria-hidden="true"><use href="#arrowD"/></svg>
     </div>
   </section>
 
-  <!-- THE 7 DAYS -->
-  <section>
-    <div class="sec-head">
-      <h2>your week in the bowl</h2>
-      <p>5 to 20 minutes a day. miss a day? the missions wait for you. no guilt, no gatekeeping.</p>
-    </div>
-    <ol class="days">
-      <li class="day"><span class="dchip">day 1</span><div><h3>find your sound</h3><p>pick your genre, steal 3 reference tracks, drop them in the thread. day 1 is intentionally easy.</p></div></li>
-      <li class="day"><span class="dchip">day 2</span><div><h3>chop something</h3><p>flip a sample or loop 4 bars. imperfect and finished beats perfect and imaginary.</p></div></li>
-      <li class="day"><span class="dchip">day 3</span><div><h3>drums hit different</h3><p>build a beat that knocks. we hand you the pattern, you make it slap.</p></div></li>
-      <li class="day"><span class="dchip">day 4</span><div><h3>melody magic</h3><p>one chord loop, one top line. hum it if you have to. we all do.</p></div></li>
-      <li class="day"><span class="dchip">day 5</span><div><h3>arrange it</h3><p>turn your 8 bars into an actual song. intro, verse, drop, outro.</p></div></li>
-      <li class="day"><span class="dchip">day 6</span><div><h3>polish the slurp</h3><p>mix it clean, make it loud, fix the one thing you've been avoiding.</p></div></li>
-      <li class="day"><span class="dchip">day 7</span><div><h3>drop it</h3><p>post your track. real feedback from real musicians. take a bow. 🎹</p></div></li>
-    </ol>
-  </section>
+  <!-- SEAT: EMBEDDED CHECKOUT -->
+  <section id="seat">
+    <div class="seat-zone">
+      <svg class="side-arrow sa-left" viewBox="0 0 40 52" aria-hidden="true"><use href="#arrowD"/></svg>
+      <svg class="side-arrow sa-right" viewBox="0 0 40 52" aria-hidden="true"><use href="#arrowD"/></svg>
 
-  <!-- WHAT YOU GET -->
-  <section>
-    <div class="sec-head"><h2>what's in the bowl</h2></div>
-    <div class="get-grid">
-      <div class="get"><span class="gi">📮</span><h3>daily missions</h3><p>one clear task every morning. no doomscrolling required.</p></div>
-      <div class="get"><span class="gi">🎧</span><h3>feedback that slaps</h3><p>real musicians actually listen and tell you what's working. kindly.</p></div>
-      <div class="get"><span class="gi">📦</span><h3>starter packs</h3><p>samples, templates and cheat sheets. day 1 friendly.</p></div>
-      <div class="get"><span class="gi">🏁</span><h3>a finished track</h3><p>by day 7 you have something with your name on it.</p></div>
-      <div class="get"><span class="gi">✊</span><h3>zero gatekeeping</h3><p>beginners are the vibe here. bring your rough 4 bars.</p></div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section>
-    <div class="card final-card">
-      <h2>day 1 is already simmering</h2>
-      <p>the pot's on, the regulars are in, and your first mission is written. all that's missing is you.</p>
-      <a class="btn yolk btn-big js-join" href="https://whop.com/noodlehub/exp_MeftHjsX2FEVZ1/app/">make my account & join ♪</a>
-      <p class="micro">60 seconds. that's the whole thing.</p>
+      <span class="card-tag">step 1 of 1 ♪</span>
+      <div class="whop-card">
+        <div class="whop-loading" id="whopLoading">
+          <span class="badge"><svg viewBox="0 0 16 14" shape-rendering="crispEdges" aria-hidden="true"><use href="#bowl"/></svg></span>
+          <span>warming up the bowl...</span>
+        </div>
+        <div class="whop-mount" id="whopMount">
+          <!-- EDIT: brand-matched checkout form (dark, melts into the card).
+               theme/background/accent/border-radius/button-text are read
+               directly by whop's loader from these data attributes.
+               background #232229 = card color so the form has no visible edge.
+               accent #F02C7C = brand pink (same hex as the whop dashboard button color). -->
+          <div
+            data-whop-checkout-plan-id="plan_bzBpw6sDLeRmB"
+            data-whop-checkout-return-url="https://whop.com/noodlehub/exp_MeftHjsX2FEVZ1/app/"
+            data-whop-checkout-theme="dark"
+            data-whop-checkout-theme-background-color="#232229"
+            data-whop-checkout-theme-accent-color="#F02C7C"
+            data-whop-checkout-theme-border-radius="12"
+            data-whop-checkout-theme-button-text="Start The Challenge 🍜">
+          </div>
+        </div>
+        <div class="embed-fallback" id="embedFallback">
+          <p class="fbnote">the form's being shy (ad blockers do that sometimes).</p>
+          <a class="btn" href="https://whop.com/checkout/ch_8636Iv5zeFgaAaq/">Start The Challenge 🍜</a>
+        </div>
+      </div>
     </div>
   </section>
 
 </div>
 
 <footer>
-  <div class="flogo"><svg viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg>noodlecafe sesssions ♪</div>
   <p class="slogan">No bullshit. No gatekeeping. Just music. 🍜</p>
-  <p class="cp">© 2026 noodlecafé sesssions</p>
+  <p class="cp">© 2026 noodlecafe sesssions</p>
 </footer>
 
 <div class="sticky-cta" id="stickyCta">
-  <a class="btn js-join" href="https://whop.com/noodlehub/exp_MeftHjsX2FEVZ1/app/">join the 7 day challenge ♪</a>
+  <a class="btn js-seat" href="#seat">Start The Challenge 🍜</a>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -307,16 +280,22 @@
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* sticky cta: show once hero is scrolled past */
+  /* sticky cta: only shows when the form is far off screen
+     (basically never on this page, but it's there as a safety net) */
   var sticky = document.getElementById('stickyCta');
   var hero = document.getElementById('hero');
+  var seat = document.getElementById('seat');
+  var heroGone = false, seatSeen = false;
+  function upd(){ sticky.classList.toggle('show', heroGone && !seatSeen); }
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(en){
-      sticky.classList.toggle('show', !en[0].isIntersecting);
-    },{threshold:0}).observe(hero);
+    new IntersectionObserver(function(en){ heroGone = !en[0].isIntersecting; upd(); },{threshold:0}).observe(hero);
+    new IntersectionObserver(function(en){ seatSeen = en[0].isIntersecting; upd(); },{threshold:0}).observe(seat);
   }else{
     window.addEventListener('scroll',function(){
-      sticky.classList.toggle('show', window.scrollY > hero.offsetHeight);
+      heroGone = window.scrollY > hero.offsetHeight;
+      var r = seat.getBoundingClientRect();
+      seatSeen = r.top < window.innerHeight && r.bottom > 0;
+      upd();
     },{passive:true});
   }
 
@@ -331,7 +310,7 @@
 
   /* confetti */
   var layer = document.getElementById('confetti');
-  var colors = ['#F13C7D','#F6E75F','#2E62F4','#CDC5F2','#C9335C'];
+  var colors = ['#F02C7C','#F4E45C','#CDC5F2','#A9C3F7','#F8F0E8'];
   function confetti(n){
     if(reduce) return;
     n = n || 60;
@@ -347,6 +326,26 @@
     }
   }
 
+  /* embed health check: hide loader when whop mounts,
+     show fallback link if the embed never shows up */
+  var mount = document.getElementById('whopMount');
+  var inner = mount ? mount.querySelector('[data-whop-checkout-plan-id]') : null;
+  var loading = document.getElementById('whopLoading');
+  var fallback = document.getElementById('embedFallback');
+  var tries = 0;
+  var health = setInterval(function(){
+    tries++;
+    if(inner && inner.firstElementChild){
+      clearInterval(health);
+      if(loading) loading.style.display = 'none';
+      toast('form\'s ready. one email and you\'re in ♪', 2400);
+    } else if(tries > 16){ /* ~8 seconds */
+      clearInterval(health);
+      if(loading) loading.style.display = 'none';
+      if(fallback) fallback.classList.add('show');
+    }
+  }, 500);
+
   /* bowl easter egg */
   var bowl = document.getElementById('bowl'), clicks = 0;
   var lines = ['slurp.','mm. noodles.','careful. it\'s hot.','...you\'re stalling.'];
@@ -356,16 +355,9 @@
     if(clicks < 5){ toast(lines[clicks-1], 1400); }
     else{
       confetti(110);
-      toast('certified slurper. now go join ♪', 2600);
-      document.querySelectorAll('.js-join').forEach(function(b){ b.classList.add('pulse'); });
-      setTimeout(function(){ document.querySelectorAll('.js-join').forEach(function(b){ b.classList.remove('pulse'); }); }, 5000);
+      toast('certified slurper. now go lock that seat ♪', 2400);
       clicks = 0;
     }
-  });
-
-  /* celebrate on join click (doesn't block navigation) */
-  document.querySelectorAll('.js-join').forEach(function(a){
-    a.addEventListener('click', function(){ confetti(45); });
   });
 })();
 </script>
