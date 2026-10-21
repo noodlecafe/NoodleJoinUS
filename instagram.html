@@ -99,10 +99,14 @@
     gap:.8rem;font-family:'Silkscreen',monospace;font-size:.64rem;color:var(--mut);z-index:0;text-align:center;padding:1rem}
   .whop-loading .badge{width:54px;animation:bob 3s ease-in-out infinite}
   .whop-mount{position:relative;z-index:1;padding:.15rem;overflow:hidden}
-  /* whop reports the iframe taller than its content (fixed 480px, ~140px dead
-     white space below the powered-by row). crop that tail off:
-     negative bottom margin + hidden overflow trims it at every width. */
-  .whop-mount iframe{width:100%!important;display:block;border:0;border-radius:14px;background:transparent;margin-bottom:-120px}
+  /* on real sites (https) whop auto-fits the iframe to the actual form
+     height (verified: 362px @390w, 345px @1280w) - no crop needed there.
+     the fixed 480px box only happens on file:// previews (height sync fails
+     on file origins), leaving a dead tail below the form. dark-on-dark now,
+     but trim it in that case only. html.file-preview is set by the script
+     at the bottom for file: origins only. */
+  .whop-mount iframe{width:100%!important;display:block;border:0;border-radius:14px;background:transparent}
+  html.file-preview .whop-mount iframe{margin-bottom:-100px}
   .embed-fallback{display:none;margin-top:1rem;text-align:center}
   .embed-fallback.show{display:block;animation:nowPulse 2.4s ease-in-out infinite}
   @keyframes nowPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
@@ -279,6 +283,11 @@
 (function(){
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* file:// previews only: whop's iframe height sync fails on file origins
+     (box stuck at 480px) - enable the legacy tail crop. on the live site
+     whop auto-fits the height and this class is never added. */
+  if(location.protocol === 'file:'){ document.documentElement.classList.add('file-preview'); }
 
   /* sticky cta: only shows when the form is far off screen
      (basically never on this page, but it's there as a safety net) */
