@@ -161,7 +161,7 @@
 
 <!-- svg defs -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="bowl" viewBox="0 0 16 14" shape-rendering="crispEdges">
+  <symbol id="pixelBowl" viewBox="0 0 16 14" shape-rendering="crispEdges">
     <!-- chopsticks -->
     <rect x="10" y="0" width="1" height="1" fill="var(--ink)"/><rect x="11" y="1" width="1" height="1" fill="var(--ink)"/>
     <rect x="12" y="2" width="1" height="1" fill="var(--ink)"/><rect x="13" y="0" width="1" height="1" fill="var(--ink)"/>
@@ -203,7 +203,7 @@
 
   <header class="top">
     <div class="logo">
-      <span class="badge"><svg viewBox="0 0 16 14" aria-hidden="true"><use href="#bowl"/></svg></span>
+      <span class="badge"><svg viewBox="0 0 16 14" aria-hidden="true"><use href="#pixelBowl"/></svg></span>
       noodlecafe sesssions <span style="color:var(--pink)">♪</span>
     </div>
   </header>
@@ -221,7 +221,7 @@
             <g fill="var(--pink)">
               <rect class="st s1" x="5" y="2" width="1" height="2"/><rect class="st s2" x="8" y="1" width="1" height="2"/><rect class="st s3" x="11" y="2" width="1" height="2"/>
             </g>
-            <use href="#bowl"/>
+            <use href="#pixelBowl"/>
           </svg>
         </div>
       </div>
@@ -238,7 +238,7 @@
       <span class="card-tag">step 1 of 1 ♪</span>
       <div class="whop-card">
         <div class="whop-loading" id="whopLoading">
-          <span class="badge"><svg viewBox="0 0 16 14" shape-rendering="crispEdges" aria-hidden="true"><use href="#bowl"/></svg></span>
+          <span class="badge"><svg viewBox="0 0 16 14" shape-rendering="crispEdges" aria-hidden="true"><use href="#pixelBowl"/></svg></span>
           <span>warming up the bowl...</span>
         </div>
         <div class="whop-mount" id="whopMount">
@@ -336,7 +336,8 @@
   }
 
   /* embed health check: hide loader when whop mounts,
-     show fallback link if the embed never shows up */
+     show fallback link if the embed never shows up.
+     (no toast on mount anymore: it popped up on every load) */
   var mount = document.getElementById('whopMount');
   var inner = mount ? mount.querySelector('[data-whop-checkout-plan-id]') : null;
   var loading = document.getElementById('whopLoading');
@@ -347,7 +348,6 @@
     if(inner && inner.firstElementChild){
       clearInterval(health);
       if(loading) loading.style.display = 'none';
-      toast('form\'s ready. one email and you\'re in ♪', 2400);
     } else if(tries > 16){ /* ~8 seconds */
       clearInterval(health);
       if(loading) loading.style.display = 'none';
